@@ -2,11 +2,15 @@ import random
 import pygame
 import time
 from assets import musica, imagens
-from classes import *
-from game_start_screen_definitivo import tela_inicio, tela
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1
+from game_start_screen_definitivo import tela_inicio
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RUNNING2, RUNNING3, RUNNING4, RUNNING5
 from fase1 import fase1
-
+from fase2 import fase2
+from fase3 import fase3
+from fase4 import fase4
+from FaseFinal import faseFinal
+pygame.init()
+pygame.mixer.init()
 def jogo():
     clock = pygame.time.Clock()
     clock.tick(FPS)
@@ -16,6 +20,14 @@ def jogo():
             tela_inicio(TELA)
         elif state == RUNNING1:
             fase1(TELA)
+        elif state == RUNNING2:
+            fase2(TELA)
+        elif state == RUNNING3:
+            fase3(TELA)
+        elif state == RUNNING4:
+            fase4(TELA)
+        elif state == RUNNING5:
+            faseFinal(TELA)
         else:
             state = QUIT
         pygame.display.flip()
