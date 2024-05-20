@@ -1,6 +1,8 @@
 import pygame
 pygame.font.init()
-TELA = pygame.display.set_mode((750, 750))
+LARGURA = 750
+ALTURA = 750
+TELA = pygame.display.set_mode((LARGURA, ALTURA))
 FPS = 60
 BLACK = (0,0,0)
 WHITE = (255,255,255)

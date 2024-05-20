@@ -1,4 +1,7 @@
 import pygame
+from configuracoes import LARGURA, ALTURA
+largura = LARGURA
+altura = ALTURA
 class Nave(pygame.sprite.Sprite):
     #inicia construção da classe
     def _init_(self,lado,todas_sprites,todos_tiros,image,imagem_tiro):
