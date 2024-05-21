@@ -163,7 +163,7 @@ class BulletLeticia1(pygame.sprite.Sprite):
         self.rect = self.hitbox.get_rect()
         #define o lado de partida do tiro (inimigo ou jogador)
         self.rect.center = (x,y)
-        self.tempo_h = 300
+        self.tempo_h = 200
         self.tempo_v = 100
         self.speedy = 2
         self.speedx = 1
@@ -209,14 +209,14 @@ class BulletLeticiaL(pygame.sprite.Sprite):
         self.rect = self.hitbox.get_rect()
         #define o lado de partida do tiro (inimigo ou jogador)
         self.rect.center = (x,y)
-        self.tempo_h = 300
+        self.tempo_h = 200
         self.tempo_v = 100
+        self.wait = 500 #espera pros tiros cairem
         self.speedy = 2
         self.speedx = -1
     #funcao que define as ações do tiro
     def update(self):
         if self.tempo_h > 0:
-            #movimenta o tiro no eixo y
             # indo pro lado da tela
             self.rect.x += self.speedx
             #se o tiro passar da tela
@@ -226,6 +226,9 @@ class BulletLeticiaL(pygame.sprite.Sprite):
             if self.rect.x > LARGURA or self.rect.x < 0:
                 self.kill()
             self.tempo_h -= 1
+        # if self.tempo_h <= 0 and self.wait > 0:
+        #     self.rect.x += 0
+        #     self.rect.y += 0
         if self.tempo_h <= 0 and self.tempo_v > 0:
             self.rect.y += self.speedy
             self.rect.x += -self.speedx
@@ -241,6 +244,168 @@ class BulletLeticiaL(pygame.sprite.Sprite):
                 self.kill()
             if self.rect.x > LARGURA or self.rect.x < 0:
                 self.kill()
+
+class BulletLeticiaBD(pygame.sprite.Sprite):
+    #inicia a construção da nave
+    def __init__(self,image,x,y):
+        #inicializa a sprite
+        pygame.sprite.Sprite.__init__(self)
+        #define a imagem do tiro
+        self.image = image
+        #define a hitbox do tiro
+        self.hitbox = pygame.mask.from_surface(self.image)
+        #define o tiro como um retangulo para o computador, para possibilitar movimento
+        self.rect = self.hitbox.get_rect()
+        #define o lado de partida do tiro (inimigo ou jogador)
+        self.rect.center = (x,y)
+        self.tempo_h = 250
+        self.tempo_v = 100
+        # self.wait = 500 #espera pros tiros cairem
+        self.speedy = 1
+        self.speedx = -2
+    #funcao que define as ações do tiro
+    def update(self):
+        if self.tempo_h > 0:
+            # indo pro lado da tela
+            self.rect.x += self.speedx
+            #se o tiro passar da tela
+            if self.rect.y < 0:
+                #auto destruição do tiro
+                self.kill()
+            if self.rect.x > LARGURA or self.rect.x < 0:
+                self.kill()
+            self.tempo_h -= 1
+        # if self.tempo_h <= 0 and self.wait > 0:
+        #     self.rect.x += 0
+        #     self.rect.y += 0
+        if self.tempo_h <= 0:
+            self.rect.y += self.speedy
+            # self.rect.x += -self.speedx
+            if self.rect.y < 0:
+                self.kill()
+            if self.rect.x > LARGURA or self.rect.x < 0:
+                self.kill()
+class BulletLeticiaBDU(pygame.sprite.Sprite):
+    #inicia a construção da nave
+    def __init__(self,image,x,y):
+        #inicializa a sprite
+        pygame.sprite.Sprite.__init__(self)
+        #define a imagem do tiro
+        self.image = image
+        #define a hitbox do tiro
+        self.hitbox = pygame.mask.from_surface(self.image)
+        #define o tiro como um retangulo para o computador, para possibilitar movimento
+        self.rect = self.hitbox.get_rect()
+        #define o lado de partida do tiro (inimigo ou jogador)
+        self.rect.center = (x,y)
+        self.tempo_h = 250
+        self.tempo_v = 100
+        # self.wait = 500 #espera pros tiros cairem
+        self.speedy = -1
+        self.speedx = -2
+    #funcao que define as ações do tiro
+    def update(self):
+        if self.tempo_h > 0:
+            # indo pro lado da tela
+            self.rect.x += self.speedx
+            #se o tiro passar da tela
+            if self.rect.y < 0:
+                #auto destruição do tiro
+                self.kill()
+            if self.rect.x > LARGURA or self.rect.x < 0:
+                self.kill()
+            self.tempo_h -= 1
+        # if self.tempo_h <= 0 and self.wait > 0:
+        #     self.rect.x += 0
+        #     self.rect.y += 0
+        if self.tempo_h <= 0:
+            self.rect.y += self.speedy
+            # self.rect.x += -self.speedx
+            if self.rect.y < 0:
+                self.kill()
+            if self.rect.x > LARGURA or self.rect.x < 0:
+                self.kill()           
+
+class BulletLeticiaBE(pygame.sprite.Sprite):
+    #inicia a construção da nave
+    def __init__(self,image,x,y):
+        #inicializa a sprite
+        pygame.sprite.Sprite.__init__(self)
+        #define a imagem do tiro
+        self.image = image
+        #define a hitbox do tiro
+        self.hitbox = pygame.mask.from_surface(self.image)
+        #define o tiro como um retangulo para o computador, para possibilitar movimento
+        self.rect = self.hitbox.get_rect()
+        #define o lado de partida do tiro (inimigo ou jogador)
+        self.rect.center = (x,y)
+        self.tempo_h = 250
+        self.tempo_v = 100
+        # self.wait = 500 #espera pros tiros cairem
+        self.speedy = 1
+        self.speedx = 2
+    #funcao que define as ações do tiro
+    def update(self):
+        if self.tempo_h > 0:
+            # indo pro lado da tela
+            self.rect.x += self.speedx
+            #se o tiro passar da tela
+            if self.rect.y < 0:
+                #auto destruição do tiro
+                self.kill()
+            if self.rect.x > LARGURA or self.rect.x < 0:
+                self.kill()
+            self.tempo_h -= 1
+        # if self.tempo_h <= 0 and self.wait > 0:
+        #     self.rect.x += 0
+        #     self.rect.y += 0
+        if self.tempo_h <= 0:
+            self.rect.y += self.speedy
+            # self.rect.x += -self.speedx
+            if self.rect.y < 0:
+                self.kill()
+            if self.rect.x > LARGURA or self.rect.x < 0:
+                self.kill()
+class BulletLeticiaBEU(pygame.sprite.Sprite):
+    #inicia a construção da nave
+    def __init__(self,image,x,y):
+        #inicializa a sprite
+        pygame.sprite.Sprite.__init__(self)
+        #define a imagem do tiro
+        self.image = image
+        #define a hitbox do tiro
+        self.hitbox = pygame.mask.from_surface(self.image)
+        #define o tiro como um retangulo para o computador, para possibilitar movimento
+        self.rect = self.hitbox.get_rect()
+        #define o lado de partida do tiro (inimigo ou jogador)
+        self.rect.center = (x,y)
+        self.tempo_h = 250
+        self.tempo_v = 100
+        # self.wait = 500 #espera pros tiros cairem
+        self.speedy = -1
+        self.speedx = 2
+    #funcao que define as ações do tiro
+    def update(self):
+        if self.tempo_h > 0:
+            # indo pro lado da tela
+            self.rect.x += self.speedx
+            #se o tiro passar da tela
+            if self.rect.y < 0:
+                #auto destruição do tiro
+                self.kill()
+            if self.rect.x > LARGURA or self.rect.x < 0:
+                self.kill()
+            self.tempo_h -= 1
+        # if self.tempo_h <= 0 and self.wait > 0:
+        #     self.rect.x += 0
+        #     self.rect.y += 0
+        if self.tempo_h <= 0:
+            self.rect.y += self.speedy
+            # self.rect.x += -self.speedx
+            if self.rect.y < 0:
+                self.kill()
+            if self.rect.x > LARGURA or self.rect.x < 0:
+                self.kill()    
 
 class Nave_Leticia(pygame.sprite.Sprite):
     #inicia construção da classe
@@ -266,10 +431,14 @@ class Nave_Leticia(pygame.sprite.Sprite):
         self.all_bullets = todos_tiros
         self.last_shot = pygame.time.get_ticks()
         self.last_left_shot = pygame.time.get_ticks()
+        self.last_bdshot = pygame.time.get_ticks()
+        self.last_bdushot = pygame.time.get_ticks()
+        self.last_beshot = pygame.time.get_ticks()
+        self.last_beushot = pygame.time.get_ticks()
         self.last_move = pygame.time.get_ticks() #tempo desde o ultimo movimento
         self.pare = 3000
-        self.tempo_parada = 5000
-        self.shoot_ticks = 700 #tempo pro tiro
+        self.tempo_parada = 4000
+        self.shoot_ticks = 200 #tempo pro tiro
 #posição
         self.rect.x = 200
         self.rect.y = 100
@@ -338,7 +507,64 @@ class Nave_Leticia(pygame.sprite.Sprite):
             # Marca o tick da nova imagem.
             self.last_left_shot = agora
             tiroL = BulletLeticiaL(self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+            
                 #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
             self.all_sprites.add(tiroL)
                 #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
             self.all_bullets.add(tiroL)        
+    def shoot_left_down(self):
+         # Verifica se pode atirar
+        agora = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = agora - self.last_beshot
+        if elapsed_ticks > self.shoot_ticks:
+            # Marca o tick da nova imagem.
+            self.last_beshot = agora
+            tiroE = BulletLeticiaBE(self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+            
+                #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
+            self.all_sprites.add(tiroE)
+                #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
+            self.all_bullets.add(tiroE)           
+    def shoot_left_up(self):
+         # Verifica se pode atirar
+        agora = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = agora - self.last_beushot
+        if elapsed_ticks > self.shoot_ticks:
+            # Marca o tick da nova imagem.
+            self.last_beushot = agora
+            tiroEU = BulletLeticiaBEU(self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+            
+                #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
+            self.all_sprites.add(tiroEU)
+                #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
+            self.all_bullets.add(tiroEU)           
+    def shoot_right_down(self):
+         # Verifica se pode atirar
+        agora = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = agora - self.last_bdshot
+        if elapsed_ticks > self.shoot_ticks:
+            # Marca o tick da nova imagem.
+            self.last_bdshot = agora
+            tiroD = BulletLeticiaBD(self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+            
+                #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
+            self.all_sprites.add(tiroD)
+                #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
+            self.all_bullets.add(tiroD)       
+    def shoot_right_up(self):
+         # Verifica se pode atirar
+        agora = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = agora - self.last_bdushot
+        if elapsed_ticks > self.shoot_ticks:
+            # Marca o tick da nova imagem.
+            self.last_bdushot = agora
+            tiroDU = BulletLeticiaBDU(self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+            
+                #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
+            self.all_sprites.add(tiroDU)
+                #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
+            self.all_bullets.add(tiroDU)       
