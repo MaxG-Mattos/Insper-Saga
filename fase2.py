@@ -2,7 +2,7 @@ import random
 import pygame
 import time
 from assets import musica, imagens
-from classes import *
+from Classes import *
 from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED
 
 pygame.init()
@@ -16,18 +16,59 @@ pygame.mixer.music.play(loops=-1)
 def fase2(window):
     clock = pygame.time.Clock()
     clock.tick(FPS)
+    all_sprites = pygame.sprite.Group()
+    all_bullets = pygame.sprite.Group()
+    jogador = Nave('jogador', all_sprites, all_bullets, imagens['jogador'], imagens['new piskel'])
+    inimigo = Nave_Leticia(all_sprites, all_bullets, imagens['jogador'], imagens['new piskel'])
+    all_sprites.add(jogador)
+    all_sprites.add(inimigo)
     state = None
     running = True
+    atira = False
     window = screen
     while running:
+        if atira:
+            jogador.shoot()
+        if inimigo.pare <= 0 and inimigo.tempo_parada > 0:
+            inimigo.shoot()
+            inimigo.shoot_left()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 state = QUIT
             if event.type == pygame.KEYDOWN:
-                running = False
-                state = RUNNING3
+                if event.key == pygame.K_d:
+                    jogador.speed_x += 1
+                if event.key == pygame.K_a:
+                    jogador.speed_x -= 1
+                if event.key == pygame.K_s:
+                    jogador.speed_y += 1
+                if event.key == pygame.K_w:
+                    jogador.speed_y -= 1
+                if event.key == pygame.K_SPACE:
+                    jogador.shoot()
+                    atira = True
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_d:
+                    jogador.speed_x -= 1
+                if event.key == pygame.K_a:
+                    jogador.speed_x += 1
+                if event.key == pygame.K_s:
+                    jogador.speed_y -= 1
+                if event.key == pygame.K_w:
+                    jogador.speed_y += 1
+                if event.key == pygame.K_SPACE:
+                    atira = False
+                # running = False -->condição passagem de fase
+                # state = RUNNING3
+        if atira:
+            jogador.shoot()
+        if inimigo.pare <= 0 and inimigo.tempo_parada > 0:
+            inimigo.shoot()
+            inimigo.shoot_left()
         window.fill(RED)
+        all_sprites.update()
+        all_sprites.draw(window)        
         pygame.display.flip()
     return state
 
