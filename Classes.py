@@ -258,7 +258,7 @@ class BulletLeticiaBD(pygame.sprite.Sprite):
         self.rect = self.hitbox.get_rect()
         #define o lado de partida do tiro (inimigo ou jogador)
         self.rect.center = (x,y)
-        self.tempo_h = 250
+        self.tempo_h = 200
         self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
         self.speedy = 1
@@ -298,7 +298,7 @@ class BulletLeticiaBDU(pygame.sprite.Sprite):
         self.rect = self.hitbox.get_rect()
         #define o lado de partida do tiro (inimigo ou jogador)
         self.rect.center = (x,y)
-        self.tempo_h = 250
+        self.tempo_h = 200
         self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
         self.speedy = -1
@@ -339,7 +339,7 @@ class BulletLeticiaBE(pygame.sprite.Sprite):
         self.rect = self.hitbox.get_rect()
         #define o lado de partida do tiro (inimigo ou jogador)
         self.rect.center = (x,y)
-        self.tempo_h = 250
+        self.tempo_h = 200
         self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
         self.speedy = 1
@@ -379,7 +379,7 @@ class BulletLeticiaBEU(pygame.sprite.Sprite):
         self.rect = self.hitbox.get_rect()
         #define o lado de partida do tiro (inimigo ou jogador)
         self.rect.center = (x,y)
-        self.tempo_h = 250
+        self.tempo_h = 200
         self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
         self.speedy = -1
@@ -406,6 +406,7 @@ class BulletLeticiaBEU(pygame.sprite.Sprite):
                 self.kill()
             if self.rect.x > LARGURA or self.rect.x < 0:
                 self.kill()    
+ 
 
 class Nave_Leticia(pygame.sprite.Sprite):
     #inicia construção da classe
@@ -435,9 +436,10 @@ class Nave_Leticia(pygame.sprite.Sprite):
         self.last_bdushot = pygame.time.get_ticks()
         self.last_beshot = pygame.time.get_ticks()
         self.last_beushot = pygame.time.get_ticks()
+        self.last_normalshot = pygame.time.get_ticks()
         self.last_move = pygame.time.get_ticks() #tempo desde o ultimo movimento
         self.pare = 3000
-        self.tempo_parada = 4000
+        self.tempo_parada = 3000
         self.shoot_ticks = 200 #tempo pro tiro
 #posição
         self.rect.x = 200
@@ -485,6 +487,19 @@ class Nave_Leticia(pygame.sprite.Sprite):
             if self.rect.x < 25 and self.rect.y < 25:
                 self.speed_x = 1
                 self.speed_y = 0            
+    def Nshot(self):
+         # Verifica se pode atirar
+        noww = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = noww - self.last_normalshot
+        if elapsed_ticks > self.shoot_ticks:
+            # Marca o tick da nova imagem.
+            self.last_normalshot = noww
+            tiro = Bullet('inimigo',self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+                #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
+            self.all_sprites.add(tiro)
+                #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
+            self.all_bullets.add(tiro)
     def shoot(self):
          # Verifica se pode atirar
         noww = pygame.time.get_ticks()
@@ -568,3 +583,82 @@ class Nave_Leticia(pygame.sprite.Sprite):
             self.all_sprites.add(tiroDU)
                 #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
             self.all_bullets.add(tiroDU)       
+
+
+#PELICANO
+
+class Pelicano(pygame.sprite.Sprite):
+    def __init__(self,todas_sprites,todos_tiros,image,imagem_tiro):
+        #inicializa a sprite
+        pygame.sprite.Sprite.__init__(self)
+        #definie a imagem da sprite
+        self.image = image
+        #define a hitbox da nave
+        self.hitbox = pygame.mask.from_surface(self.image)
+        #define a nave como um retangulo para o computador, para possibilitar movimento
+        self.rect = self.hitbox.get_rect()
+        self.imagem_tiro = imagem_tiro
+        #recebe o grupo de todas as sprites
+        self.all_sprites = todas_sprites
+        #recebe o grupo de todos os tiros
+        self.all_bullets = todos_tiros
+        #tiros
+        self.last_shot = pygame.time.get_ticks()
+        #tempo desde o ultimo movimento
+        self.last_move = pygame.time.get_ticks() 
+        self.pare = 3000 #para depois de x segundos
+        self.tempo_parada = 3000 #fica parado por x segundos
+        self.tempofase1 = 20000 #tempo no movetype
+        self.shoot_ticks = 200 #tempo pro tiro
+#posição
+        self.rect.x = 60
+        self.rect.y = 200
+        self.move_type = 1
+        self.speed_x = 1
+        self.speed_y = 0    
+    def update(self):
+        if self.pare > 0:
+            self.pare -= 1
+            self.rect.x += self.speed_x
+            self.rect.y += self.speed_y
+            if self.rect.x > LARGURA - 75:
+                self.speed_y = -2
+                self.speed_x = -1
+            if self.rect.y < 25:
+                self.speed_x = -2
+                self.speed_y = 1
+            if self.rect.x < 25:
+                self.speed_x = 1
+                self.speed_y = 0
+            if self.rect.y > ALTURA - 475:
+                self.speed_x = 1
+                self.speed_y = 0
+            if self.rect.x == LARGURA-85:
+                self.speed_y = -2
+                self.speed_x = -1  
+            # if self.rect.x < LARGURA - 75 and self.rect.y <= 25:
+
+        if self.pare <= 0 and self.tempo_parada > 0:
+            self.rect.x += 0
+            self.rect.y += 0
+            self.tempo_parada -= 1
+        if self.pare <= 0 and self.tempo_parada <= 0:
+            self.pare = 3000
+            self.tempo_parada = 5000
+            self.rect.x += self.speed_x
+            self.rect.y += self.speed_y
+            if self.rect.x > LARGURA - 75:
+                self.speed_y = -2
+                self.speed_x = -1
+            if self.rect.y < 25:
+                self.speed_x = -2
+                self.speed_y = 1
+            if self.rect.x < 25:
+                self.speed_x = 1
+                self.speed_y = 0
+            if self.rect.y > ALTURA - 475:
+                self.speed_x = 1
+                self.speed_y = 0
+            if self.rect.x == LARGURA-85:
+                self.speed_y = -2
+                self.speed_x = -1                
