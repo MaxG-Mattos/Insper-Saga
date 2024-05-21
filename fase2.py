@@ -3,7 +3,7 @@ import pygame
 import time
 from assets import musica, imagens
 from Classes import *
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED, leticia, v_jogador
 
 pygame.init()
 pygame.mixer_music.load(musica['segunda fase'])
@@ -25,6 +25,8 @@ def fase2(window):
     state = None
     running = True
     atira = False
+    VIDAS_JOGADOR = v_jogador
+    VIDAS_LETICIA = leticia
     window = screen
     while running:
         if atira:
@@ -32,12 +34,16 @@ def fase2(window):
         if inimigo.pare <= 0 and inimigo.tempo_parada > 0:
             # inimigo.shoot()
             # inimigo.shoot_left()
-            if inimigo.rect.left <= 100:
+            if inimigo.rect.left <= 200:
                 inimigo.shoot_left_down()
                 inimigo.shoot_left_up()
-            if inimigo.rect.right >= 650:
+                inimigo.shoot_left()
+                inimigo.Nshot()
+            if inimigo.rect.right >= 500:
                 inimigo.shoot_right_down()
                 inimigo.shoot_right_up()
+                inimigo.shoot_left()
+                inimigo.Nshot()
             else:
                 inimigo.shoot()
                 inimigo.shoot_left()
@@ -75,19 +81,23 @@ def fase2(window):
         if inimigo.pare <= 0 and inimigo.tempo_parada > 0:
             # inimigo.shoot()
             # inimigo.shoot_left()
-            if inimigo.rect.left <= 100:
+            if inimigo.rect.left <= 200:
                 inimigo.shoot_left_up()
                 inimigo.shoot_left_down()
-            if inimigo.rect.right >= 650:
+                inimigo.shoot_left()
+                inimigo.Nshot()
+            if inimigo.rect.right >= 500:
                 inimigo.shoot_right_up()
                 inimigo.shoot_right_down()
+                inimigo.shoot_left()
+                inimigo.Nshot()
             else:
                 inimigo.shoot()
                 inimigo.shoot_left()
             
         window.fill(RED)
         all_sprites.update()
-        all_sprites.draw(window)        
+        all_sprites.draw(window)      
         pygame.display.flip()
     return state
 
