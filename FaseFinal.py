@@ -27,6 +27,35 @@ def faseFinal(window):
     all_sprites.add(jogador)
     all_sprites.add(pelicano)
     while running:
+        if pelicano.pare <= 0 and pelicano.tempo_parada > 0:
+            if pelicano.rect.y >= ALTURA - 300:
+                pelicano.shoot_diaE_up()
+                pelicano.shoot_dia_up()
+                pelicano.shoot_normal()
+                pelicano.shoot_normal_baixo()
+                pelicano.shoot_diagonal_esquerda()
+                pelicano.shoot_diagonal_direita()
+            if pelicano.rect.x <= 200:             
+                pelicano.shoot_left_down()
+                pelicano.shoot_left_up()
+                pelicano.shoot_dia_up()
+                pelicano.shoot_diaE_up()
+                pelicano.shoot_diagonal_direita()
+                pelicano.shoot_diagonal_esquerda()
+            if pelicano.rect.x >= LARGURA - 375:
+                pelicano.shoot_left_down()
+                pelicano.shoot_left_up()
+                pelicano.shoot_diagonal_direita()
+                pelicano.shoot_diagonal_esquerda()
+                pelicano.shoot_dia_up()
+                pelicano.shoot_diaE_up()
+            if pelicano.rect.y <= 200:
+                pelicano.shoot_normal()
+                pelicano.shoot_normal_baixo()
+                pelicano.shoot_diagonal_direita()
+                pelicano.shoot_diagonal_esquerda()
+                pelicano.shoot_diaE_up()
+                pelicano.shoot_dia_up()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
