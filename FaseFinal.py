@@ -1,7 +1,7 @@
 import random
 import pygame
 import time
-from assets import musica, imagens
+from assets import musica, imagem
 from Classes import *
 from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED
 
@@ -22,8 +22,8 @@ def faseFinal(window):
     atira = False
     all_sprites = pygame.sprite.Group()
     all_bullets = pygame.sprite.Group()
-    jogador = Nave('jogador', all_sprites, all_bullets, imagens['jogador'], imagens['new piskel'])
-    pelicano = Pelicano(all_sprites, all_bullets, imagens['jogador'], imagens['new piskel'])
+    jogador = Nave('jogador', all_sprites, all_bullets, imagem['sprites']['Jogador'], imagem['tiros']['tiro'])
+    pelicano = Pelicano(all_sprites, all_bullets, imagem['sprites']['resina'], imagem['tiros']['tiro'])
     all_sprites.add(jogador)
     all_sprites.add(pelicano)
     while running:

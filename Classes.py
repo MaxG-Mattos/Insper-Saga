@@ -623,15 +623,17 @@ class Nave_Leticia(pygame.sprite.Sprite):
         self.last_beshot = pygame.time.get_ticks()
         self.last_beushot = pygame.time.get_ticks()
         self.last_normalshot = pygame.time.get_ticks()
+        self.lastduptiro = pygame.time.get_ticks()
+        self.lastdeuptiro = pygame.time.get_ticks()
         self.last_move = pygame.time.get_ticks() #tempo desde o ultimo movimento
         self.pare = 3000
         self.tempo_parada = 3000
-        self.shoot_ticks = 800 #tempo pro tiro
+        self.shoot_ticks = 340 #tempo pro tiro
 #posição
         self.rect.x = 200
         self.rect.y = 100
-        self.speed_x = 1
-        self.speed_y = 1
+        self.speed_x = 6
+        self.speed_y = 6
         #função de ações da Nave
     def update(self):
         if self.pare > 0:
@@ -641,15 +643,15 @@ class Nave_Leticia(pygame.sprite.Sprite):
             self.rect.y += self.speed_y
             if self.rect.x > LARGURA-75:
                 self.speed_x = 0 
-                self.speed_y = 1
+                self.speed_y = 6
             if self.rect.y > ALTURA -475:
-                self.speed_x = -1
+                self.speed_x = -6
                 self.speed_y = 0
             if self.rect.x < 25 and self.rect.y > ALTURA -475:
                 self.speed_x = 0 
-                self.speed_y = -1
+                self.speed_y = -6
             if self.rect.x < 25 and self.rect.y < 25:
-                self.speed_x = 1
+                self.speed_x = 6
                 self.speed_y = 0
         if self.pare <= 0 and self.tempo_parada > 0:
             self.rect.x += 0
@@ -663,15 +665,15 @@ class Nave_Leticia(pygame.sprite.Sprite):
             self.rect.y += self.speed_y
             if self.rect.x > LARGURA-75:
                 self.speed_x = 0 
-                self.speed_y = 1
+                self.speed_y = 6
             if self.rect.y > ALTURA -475:
-                self.speed_x = -1
+                self.speed_x = -6
                 self.speed_y = 0
             if self.rect.x < 25 and self.rect.y > ALTURA -475:
                 self.speed_x = 0 
-                self.speed_y = -1
+                self.speed_y = -6
             if self.rect.x < 25 and self.rect.y < 25:
-                self.speed_x = 1
+                self.speed_x = 6
                 self.speed_y = 0            
     def Nshot(self):
          # Verifica se pode atirar
@@ -769,7 +771,35 @@ class Nave_Leticia(pygame.sprite.Sprite):
             self.all_sprites.add(tiroDU)
                 #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
             self.all_bullets.add(tiroDU)       
- 
+    def shoot_dia_up(self):
+         # Verifica se pode atirar
+        agora = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = agora - self.lastduptiro
+        if elapsed_ticks > self.shoot_ticks:
+            # Marca o tick da nova imagem.
+            self.lastduptiro = agora
+            tiroUP = BulletPelDiaUP(self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+            
+                #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
+            self.all_sprites.add(tiroUP)
+                #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
+            self.all_bullets.add(tiroUP)     
+    def shoot_diaE_up(self):
+         # Verifica se pode atirar
+        agora = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = agora - self.lastdeuptiro
+        if elapsed_ticks > self.shoot_ticks:
+            # Marca o tick da nova imagem.
+            self.lastdeuptiro = agora
+            tiroESUP = BulletPelDiaUP(self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+            
+                #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
+            self.all_sprites.add(tiroESUP)
+                #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
+            self.all_bullets.add(tiroESUP)   
+    
 
 
 #PELICANO
@@ -1045,7 +1075,7 @@ class BulletPelDia(pygame.sprite.Sprite):
         # self.tempo_h = 200
         # self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
-        self.speedy = 1
+        self.speedy = -2
         self.speedx = 2
     #funcao que define as ações do tiro
     def update(self):
@@ -1053,7 +1083,10 @@ class BulletPelDia(pygame.sprite.Sprite):
         if self.rect.x >= 750:
             self.speedy = 1
             self.speedx = -2
-        if self.rect.y < 0:
+        if self.rect.y >= 750:
+            self.speedy = 1
+            self.speedx = -2
+        if self.rect.y >=750:
             self.kill()
         self.rect.x += self.speedx
         self.rect.y += self.speedy
@@ -1080,11 +1113,11 @@ class BulletPelDiaUPE(pygame.sprite.Sprite):
     def update(self):
         #movimenta o tiro no eixo y
         if self.rect.y <= 0:
-            self.speedy = 2
-            self.speedx = 1
-        if self.rect.x >= 750:
-            self.speedy = 2
-            self.speedx = -1
+            self.speedy = 1
+            self.speedx = 2
+        if self.rect.x >= 0:
+            self.speedy = 1
+            self.speedx = -2
         if self.rect.y >= 750:
             self.kill()
         self.rect.x += self.speedx
@@ -1107,16 +1140,16 @@ class BulletPelDiaUP(pygame.sprite.Sprite):
         # self.tempo_h = 200
         # self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
-        self.speedy = -2
+        self.speedy = -1
         self.speedx = 2
     #funcao que define as ações do tiro
     def update(self):
         #movimenta o tiro no eixo y
         if self.rect.y <= 0:
-            self.speedy = 2
+            self.speedy = 1
             self.speedx = -2
         if self.rect.x <= 0:
-            self.speedy = 2
+            self.speedy = 1
             self.speedx = 2
         if self.rect.y >= 750:
             self.kill()
