@@ -4,7 +4,7 @@ import time
 from assets import musica, imagem
 # from Classes import Nave, Bullet
 from Classes import Nave, Bullet, Servidor
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, v_jogador, servidor,tam_servidor, ALTURA,scale
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, v_jogador, servidor,tam_servidor, ALTURA,scale,LARGURA
 
 pygame.init()
 pygame.mixer_music.load(musica['primeira fase'])
@@ -48,6 +48,7 @@ def fase1(window):
     VIDA_JOGADOR = v_jogador*22
     VIDA_SERVIDOR = servidor
     back =  imagem['background']['1']
+    write_f5 = FONT1.render('QUEDA DO SERVIDOR (while press space, aperte f5 para atirar)',False,(0,0,255))
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -110,6 +111,7 @@ def fase1(window):
         if timer_special == 0:
             inimigo.special_shoot()
             timer_special = 5000//scale
+            window.blit(write_f5,(LARGURA-90,10))
         else:
             timer_special -= 1
             # if event.type == pygame.KEYDOWN:
