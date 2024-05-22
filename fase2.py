@@ -36,7 +36,9 @@ def fase2(window):
     window = window
     jogador.speed_x = 0
     jogador.speed_y = 0
-    # pygame.time.wait(80)
+    pygame.mixer_music.load(musica['segunda fase'])
+    pygame.mixer_music.set_volume(0.5)
+    pygame.mixer.music.play(loops=-1)
     while running:
         if atira:
             jogador.shoot()

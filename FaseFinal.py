@@ -33,8 +33,9 @@ def faseFinal(window):
     sprite_en.add(pelicano)
     VIDA_JOGADOR = v_jogador
     VIDAS_RESINA = resina
-    jogador.speed_x = 0
-    jogador.speed_y = 0
+    pygame.mixer_music.load(musica['boss final'])
+    pygame.mixer_music.set_volume(0.5)
+    pygame.mixer.music.play(loops=-1)
     while running:
         if pelicano.pare <= 0 and pelicano.tempo_parada > 0:
             if pelicano.rect.y >= ALTURA - 300:

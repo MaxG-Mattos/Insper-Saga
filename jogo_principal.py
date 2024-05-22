@@ -3,7 +3,7 @@ import pygame
 import time
 from assets import musica, imagem
 from game_start_screen_definitivo import tela_inicio
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RUNNING2, RUNNING5
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RUNNING2, RUNNING5, ENTRE
 from fase1 import fase1
 from fase2 import fase2
 from FaseFinal import faseFinal
@@ -17,6 +17,7 @@ state = INIT
 running = True
 while running:
     if state == INIT:
+
         state = tela_inicio(tela)
     elif state == RUNNING1:
         state = fase1(tela)

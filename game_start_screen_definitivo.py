@@ -8,7 +8,7 @@ pygame.mixer.music.load(musica['start'])
 pygame.mixer.music.set_volume(0.4)
 font = pygame.font.SysFont('arial', 32)
 titulo = "Insper Saga: A Vida Não Tá Fácil"
-txt = "Aperte qualquer botão para começar!"
+txt = "Aperte espaço para começar!"
 # ALTURA = 400
 # LARGURA = 500
 # tela = TELA
@@ -44,6 +44,9 @@ def tela_inicio(window):
     vel = pygame.time.Clock()
     running = True
     state = None
+    pygame.mixer.music.load(musica['start'])
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops=-1)
     while running:
         vel.tick(FPS)
         for event in pygame.event.get():
@@ -52,10 +55,10 @@ def tela_inicio(window):
                 state = QUIT
                 return state
             if event.type == pygame.KEYDOWN:
-                CONTROLES = True
-                running = False
-                state = RUNNING1
-                return state
+                if event.key == pygame.K_SPACE:
+                    running = False
+                    state = RUNNING1
+                    return state
         window.fill(BLACK)
         var.update(window)
         pygame.display.flip()
