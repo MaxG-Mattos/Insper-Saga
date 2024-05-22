@@ -1,7 +1,7 @@
 import random
 import pygame
 import time
-from assets import musica, imagens
+from assets import musica, imagem
 from Classes import *
 from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED, leticia, v_jogador
 
@@ -15,11 +15,11 @@ pygame.mixer.music.play(loops=-1)
 
 def fase2(window):
     clock = pygame.time.Clock()
-    clock.tick(FPS)
+    clock.tick(0)
     all_sprites = pygame.sprite.Group()
     all_bullets = pygame.sprite.Group()
-    jogador = Nave('jogador', all_sprites, all_bullets, imagens['jogador'], imagens['new piskel'])
-    inimigo = Nave_Leticia(all_sprites, all_bullets, imagens['jogador'], imagens['new piskel'])
+    jogador = Nave('jogador', all_sprites, all_bullets, imagem['sprites']['Jogador'], imagem['tiros']['tiro'])
+    inimigo = Nave_Leticia(all_sprites, all_bullets, imagem['sprites']['leticia'], imagem['tiros']['tiro'])
     all_sprites.add(jogador)
     all_sprites.add(inimigo)
     state = None
@@ -28,6 +28,7 @@ def fase2(window):
     VIDAS_JOGADOR = v_jogador
     VIDAS_LETICIA = leticia
     window = screen
+    back = imagem['background']['2']
     while running:
         if atira:
             jogador.shoot()
@@ -38,11 +39,15 @@ def fase2(window):
                 inimigo.shoot_left_down()
                 inimigo.shoot_right_up()
                 inimigo.shoot_left()
+                inimigo.shoot_dia_up()
+                inimigo.shoot_diaE_up()
                 inimigo.Nshot()
             if inimigo.rect.right >= 500:
                 inimigo.shoot_right_down()
                 inimigo.shoot_left_up()
                 inimigo.shoot_left()
+                inimigo.shoot_dia_up()
+                inimigo.shoot_diaE_up()
                 inimigo.Nshot()
             else:
                 inimigo.shoot()
@@ -54,25 +59,25 @@ def fase2(window):
                 state = QUIT
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
-                    jogador.speed_x += 1
+                    jogador.speed_x += 5
                 if event.key == pygame.K_a:
-                    jogador.speed_x -= 1
+                    jogador.speed_x -= 5
                 if event.key == pygame.K_s:
-                    jogador.speed_y += 1
+                    jogador.speed_y += 5
                 if event.key == pygame.K_w:
-                    jogador.speed_y -= 1
+                    jogador.speed_y -= 5
                 if event.key == pygame.K_SPACE:
                     jogador.shoot()
                     atira = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_d:
-                    jogador.speed_x -= 1
+                    jogador.speed_x -= 5
                 if event.key == pygame.K_a:
-                    jogador.speed_x += 1
+                    jogador.speed_x += 5
                 if event.key == pygame.K_s:
-                    jogador.speed_y -= 1
+                    jogador.speed_y -= 5
                 if event.key == pygame.K_w:
-                    jogador.speed_y += 1
+                    jogador.speed_y += 5
                 if event.key == pygame.K_SPACE:
                     atira = False
                 # running = False -->condição passagem de fase
@@ -95,7 +100,7 @@ def fase2(window):
         #     else:
         #         inimigo.shoot()
         #         inimigo.shoot_left()
-            
+        # window.blit(back, (0,0))
         window.fill(RED)
         all_sprites.update()
         all_sprites.draw(window)      

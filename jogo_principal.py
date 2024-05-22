@@ -6,8 +6,6 @@ from game_start_screen_definitivo import tela_inicio
 from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RUNNING2, RUNNING3, RUNNING4, RUNNING5
 from fase1 import fase1
 from fase2 import fase2
-from fase3 import fase3
-from fase4 import fase4
 from FaseFinal import faseFinal
 pygame.init()
 pygame.mixer.init()
@@ -22,10 +20,6 @@ def jogo():
             fase1(TELA)
         elif state == RUNNING2:
             fase2(TELA)
-        elif state == RUNNING3:
-            fase3(TELA)
-        elif state == RUNNING4:
-            fase4(TELA)
         elif state == RUNNING5:
             faseFinal(TELA)
         else:
