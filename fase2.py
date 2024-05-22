@@ -36,16 +36,17 @@ def fase2(window):
             # inimigo.shoot_left()
             if inimigo.rect.left <= 200:
                 inimigo.shoot_left_down()
-                inimigo.shoot_left_up()
+                inimigo.shoot_right_up()
                 inimigo.shoot_left()
                 inimigo.Nshot()
             if inimigo.rect.right >= 500:
                 inimigo.shoot_right_down()
-                inimigo.shoot_right_up()
+                inimigo.shoot_left_up()
                 inimigo.shoot_left()
                 inimigo.Nshot()
             else:
                 inimigo.shoot()
+                inimigo.Nshot()
                 inimigo.shoot_left()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -78,22 +79,22 @@ def fase2(window):
                 # state = RUNNING3
         if atira:
             jogador.shoot()
-        if inimigo.pare <= 0 and inimigo.tempo_parada > 0:
-            # inimigo.shoot()
-            # inimigo.shoot_left()
-            if inimigo.rect.left <= 200:
-                inimigo.shoot_left_up()
-                inimigo.shoot_left_down()
-                inimigo.shoot_left()
-                inimigo.Nshot()
-            if inimigo.rect.right >= 500:
-                inimigo.shoot_right_up()
-                inimigo.shoot_right_down()
-                inimigo.shoot_left()
-                inimigo.Nshot()
-            else:
-                inimigo.shoot()
-                inimigo.shoot_left()
+        # if inimigo.pare <= 0 and inimigo.tempo_parada > 0:
+        #     # inimigo.shoot()
+        #     # inimigo.shoot_left()
+        #     if inimigo.rect.left <= 200:
+        #         inimigo.shoot_left_up()
+        #         inimigo.shoot_left_down()
+        #         inimigo.shoot_left()
+        #         inimigo.Nshot()
+        #     if inimigo.rect.right >= 500:
+        #         inimigo.shoot_right_up()
+        #         inimigo.shoot_right_down()
+        #         inimigo.shoot_left()
+        #         inimigo.Nshot()
+        #     else:
+        #         inimigo.shoot()
+        #         inimigo.shoot_left()
             
         window.fill(RED)
         all_sprites.update()
@@ -102,3 +103,4 @@ def fase2(window):
     return state
 
 fase2(screen)
+
