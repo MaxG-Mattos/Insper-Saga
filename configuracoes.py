@@ -24,4 +24,4 @@ resina = 10
 
 #tamanhos sprites
 tam_servidor = 64
-scale = 2
+scale = 5
