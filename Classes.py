@@ -170,6 +170,15 @@ class Servidor_bullet(pygame.sprite.Sprite):
         if self.rect.y > ALTURA:
             self.timer_sp = 500
             self.kill()
+        
+    def update(self):
+        if self.timer_sp == 0:
+            self.rect.y += self.speedy
+        else:
+            self.timer_sp -= 1
+        if self.rect.y > ALTURA:
+            self.timer_sp = 500
+            self.kill()
 
 class Servidor(pygame.sprite.Sprite):
     def __init__(self,all_sprites,all_bullets,img,b_img):
@@ -189,6 +198,7 @@ class Servidor(pygame.sprite.Sprite):
         self.direita = True
         self.last_shot = pygame.time.get_ticks()
         self.shoot_ticks = 100
+        self.special = False
     def update(self):
         if self.andando == 0:
             self.speed_x = 0
@@ -205,12 +215,18 @@ class Servidor(pygame.sprite.Sprite):
             else:
                 self.direita = False
                 self.speed_x = -1
-                if self.rect.x < 10:
+                if self.rect.x < -20:
                     self.direita = True
+        if self.special == True:
+            self.speed_x = 0
+            self.speed_y = 5
         
 
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
+        if self.rect.y == ALTURA:
+            self.rect.y = 100
+            self.special = False
     def shoot(self):
         noww = pygame.time.get_ticks()
         # Verifica quantos ticks se passaram desde o último tiro.
@@ -219,21 +235,106 @@ class Servidor(pygame.sprite.Sprite):
             if elapsed_ticks > self.shoot_ticks:
                 # Marca o tick da nova imagem.
                 self.last_shot = noww
+            
+            if self.rect.x < 100:
+                new_bullet = Servidor_bullet(self.rect.x+150,self.rect.y)
+                new_bullet2 = Servidor_bullet(self.rect.x + (2*130+tam_servidor),self.rect.y)
+                new_bullet3 = Servidor_bullet(self.rect.x + (3*130+2*tam_servidor),self.rect.y)
+                self.all_bullets.add(new_bullet)
+                self.all_sprites.add(new_bullet)
+                self.all_bullets.add(new_bullet2)
+                self.all_sprites.add(new_bullet2)
+                self.all_bullets.add(new_bullet3)
+                self.all_sprites.add(new_bullet3)
+
+            if self.rect.x > 100 and self.rect.x <= 200:
+                new_bullet = Servidor_bullet(self.rect.x+150,self.rect.y)
+                new_bullet2 = Servidor_bullet(self.rect.x + (2*130+tam_servidor),self.rect.y)
+                new_bullet3 = Servidor_bullet(self.rect.x + (3*130+2*tam_servidor),self.rect.y)
+                bala_e = Servidor_bullet(self.rect.x-75,self.rect.y)
+                self.all_bullets.add(new_bullet)
+                self.all_bullets.add(new_bullet2)
+                self.all_sprites.add(new_bullet)
+                self.all_sprites.add(new_bullet2)
+                self.all_bullets.add(bala_e)
+                self.all_sprites.add(bala_e)
+                self.all_sprites.add(new_bullet3)
+                self.all_bullets.add(new_bullet3)
+
+            if self.rect.x > 200 and self.rect.x < 270:
+                new_bullet = Servidor_bullet(self.rect.x+150,self.rect.y)
+                new_bullet2 = Servidor_bullet(self.rect.x + (2*130+tam_servidor),self.rect.y)
+                new_bullet3 = Servidor_bullet(self.rect.x + (3*130+tam_servidor),self.rect.y)
+                bala_e = Servidor_bullet(self.rect.x-75,self.rect.y)
+                bala_e2 = Servidor_bullet(self.rect.x- (2*75 + tam_servidor),self.rect.y)
+                self.all_bullets.add(new_bullet)
+                self.all_bullets.add(new_bullet2)
+                self.all_sprites.add(new_bullet)
+                self.all_sprites.add(new_bullet2)
+                self.all_bullets.add(bala_e)
+                self.all_sprites.add(bala_e)
+                self.all_sprites.add(bala_e2)
+                self.all_bullets.add(bala_e2)
+                self.all_bullets.add(new_bullet3)
+                self.all_sprites.add(new_bullet3)
+
+            if self.rect.x > 200 and self.rect.x < 400:
+                new_bullet = Servidor_bullet(self.rect.x+150,self.rect.y)
+                new_bullet2 = Servidor_bullet(self.rect.x + (2*130+tam_servidor),self.rect.y)
+                bala_e = Servidor_bullet(self.rect.x-75,self.rect.y)
+                bala_e2 = Servidor_bullet(self.rect.x- (2*75 + tam_servidor),self.rect.y)
+                self.all_bullets.add(new_bullet)
+                self.all_bullets.add(new_bullet2)
+                self.all_sprites.add(new_bullet)
+                self.all_sprites.add(new_bullet2)
+                self.all_bullets.add(bala_e)
+                self.all_sprites.add(bala_e)
+                self.all_sprites.add(bala_e2)
+                self.all_bullets.add(bala_e2)
+
+            if self.rect.x > 200 and self.rect.x < 400:
+                new_bullet = Servidor_bullet(self.rect.x+150,self.rect.y)
+                new_bullet2 = Servidor_bullet(self.rect.x + (2*130+tam_servidor),self.rect.y)
+                bala_e = Servidor_bullet(self.rect.x-75,self.rect.y)
+                bala_e2 = Servidor_bullet(self.rect.x- (2*75 + tam_servidor),self.rect.y)
+                self.all_bullets.add(new_bullet)
+                self.all_bullets.add(new_bullet2)
+                self.all_sprites.add(new_bullet)
+                self.all_sprites.add(new_bullet2)
+                self.all_bullets.add(bala_e)
+                self.all_sprites.add(bala_e)
+                self.all_sprites.add(bala_e2)
+                self.all_bullets.add(bala_e2)
+
+            if self.rect.x > 400 and self.rect.x < 600:
+                new_bullet = Servidor_bullet(self.rect.x+150,self.rect.y)
+                new_bullet2 = Servidor_bullet(self.rect.x + (2*130+tam_servidor),self.rect.y)
+                bala_e = Servidor_bullet(self.rect.x-75,self.rect.y)
+                bala_e2 = Servidor_bullet(self.rect.x- (2*75 + tam_servidor),self.rect.y)
+                bala_e3 = Servidor_bullet(self.rect.x- (3*75 + 2*tam_servidor),self.rect.y)
+                self.all_sprites.add(new_bullet)
+                self.all_sprites.add(new_bullet2)
+                self.all_sprites.add(bala_e)
+                self.all_sprites.add(bala_e2)
+                self.all_sprites.add(bala_e3)
+                self.all_bullets.add(new_bullet)
+                self.all_bullets.add(new_bullet2)
+                self.all_bullets.add(bala_e)
+                self.all_bullets.add(bala_e2)
+                self.all_bullets.add(bala_e3)
+
             if self.rect.x > LARGURA-90:    
                 new_bullet = Servidor_bullet(self.rect.x-75,self.rect.y)
+                new_bullet2 = Servidor_bullet(self.rect.x-(2*75+tam_servidor),self.rect.y)
+                new_bullet3 = Servidor_bullet(self.rect.x-(3*75+2*tam_servidor),self.rect.y)
                 self.all_bullets.add(new_bullet)
                 self.all_sprites.add(new_bullet)
-            if self.rect.x < 90:
-                new_bullet = Servidor_bullet(self.rect.x+150,self.rect.y)
-                self.all_bullets.add(new_bullet)
-                self.all_sprites.add(new_bullet)
-            if self.rect.x > 90 and self.rect.x < LARGURA-90:
-                bala_e = Servidor_bullet(self.rect.x-75,self.rect.y)
-                bala_d = Servidor_bullet(self.rect.x+150,self.rect.y)
-                self.all_bullets.add(bala_d)
-                self.all_sprites.add(bala_e)
-                self.all_bullets.add(bala_e)
-                self.all_sprites.add(bala_d)
+                self.all_bullets.add(new_bullet2)
+                self.all_sprites.add(new_bullet2)
+                self.all_bullets.add(new_bullet3)
+                self.all_sprites.add(new_bullet3)
+    def special_shoot(self):
+        self.special = True
 
 class BulletLeticia1(pygame.sprite.Sprite):
     #inicia a construção da nave
