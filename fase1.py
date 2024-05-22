@@ -9,7 +9,7 @@ from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, 
 pygame.init()
 pygame.mixer_music.load(musica['primeira fase'])
 pygame.mixer_music.set_volume(0.5)
-screen = TELA
+# screen = TELA
 pygame.display.set_caption("Insper Saga: A Vida Não Tá Fácil")
 RUNNING2 = 2 #se for verdade vai pra fase 2
 pygame.mixer.music.play(loops=-1)
@@ -20,7 +20,7 @@ def fase1(window):
     clock.tick(FPS)
     state = None
     running = True
-    window = screen
+    window = window
     all_sprites = pygame.sprite.Group()
     all_bullets = pygame.sprite.Group()
     bullet_enemy = pygame.sprite.Group()
@@ -53,6 +53,7 @@ def fase1(window):
             if event.type == pygame.QUIT:
                 running = False
                 state = QUIT
+                return state
             #se o evento for precionar a tecla
             if event.type == pygame.KEYDOWN:
                 #se a tecla for 'D'
@@ -138,12 +139,16 @@ def fase1(window):
             VIDA_SERVIDOR -= 1
         if pygame.sprite.collide_mask(jogador,inimigo):
             VIDA_JOGADOR -= 1
-            print(VIDA_JOGADOR)
+            # print(VIDA_JOGADOR)
             VIDA_SERVIDOR -= 1
-        if VIDA_SERVIDOR == 0:
-            return RUNNING2
-        if VIDA_JOGADOR == 0:
+        if VIDA_SERVIDOR <= 0:
+            running = False
+            state = RUNNING2
+            return state
+        if VIDA_JOGADOR <= 0:
+            running = False
             state = INIT
+            return state
         if VIDA_SERVIDOR == 120:
             window.blit(imagem['vida'],(0,0))
             window.blit(imagem['vida'],(70,0))
@@ -174,4 +179,4 @@ def fase1(window):
         pygame.display.flip()
     return state
 
-print(fase1(screen))
+# print(fase1(screen))

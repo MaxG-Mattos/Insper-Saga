@@ -8,7 +8,7 @@ from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, 
 pygame.init()
 pygame.mixer_music.load(musica['segunda fase'])
 pygame.mixer_music.set_volume(0.5)
-screen = TELA
+# screen = TELA
 pygame.display.set_caption("Insper Saga: A Vida Não Tá Fácil")
 RUNNING3 = 3 
 pygame.mixer.music.play(loops=-1)
@@ -33,7 +33,7 @@ def fase2(window):
     VIDAS_JOGADOR = v_jogador
     VIDAS_LETICIA = leticia
     back =  imagem['background']['2']
-    window = screen
+    window = window
     while running:
         if atira:
             jogador.shoot()
@@ -114,7 +114,7 @@ def fase2(window):
             VIDAS_JOGADOR -= 1
         if pygame.sprite.groupcollide(all_bullets,sprite_en,True,False):
             VIDAS_LETICIA -= 1
-            print(VIDAS_LETICIA)
+            # print(VIDAS_LETICIA)
   
         if VIDAS_LETICIA == 10:
             window.blit(imagem['vida'],(0,0))
@@ -158,6 +158,7 @@ def fase2(window):
             window.blit(imagem['metade vida'],(0,0))
         if VIDAS_LETICIA == 0:
             state = RUNNING5
+            running = False
         if VIDAS_JOGADOR == 0:
             state = INIT
             running = False
@@ -173,5 +174,5 @@ def fase2(window):
         pygame.display.flip()
     return state
 
-fase2(screen)
+# print(fase2(screen)) 
 

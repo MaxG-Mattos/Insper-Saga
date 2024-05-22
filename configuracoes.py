@@ -13,8 +13,6 @@ QUIT = 0
 INIT = -1
 RUNNING1 = 1
 RUNNING2 = 2 
-RUNNING3 = 3
-RUNNING4 = 4
 RUNNING5 = 5
 #vidas na prática
 servidor = 120 #cada hit é -1
