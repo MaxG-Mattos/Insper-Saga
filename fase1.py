@@ -3,8 +3,8 @@ import pygame
 import time
 from assets import musica, imagem
 # from Classes import Nave, Bullet
-from Classes import Nave, Bullet, Vidas, Servidor
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, v_jogador, servidor
+from Classes import Nave, Bullet, Servidor
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, v_jogador, servidor,tam_servidor
 
 pygame.init()
 pygame.mixer_music.load(musica['primeira fase'])
@@ -23,8 +23,11 @@ def fase1(window):
     window = screen
     all_sprites = pygame.sprite.Group()
     all_bullets = pygame.sprite.Group()
+    bullet_enemy = pygame.sprite.Group()
+    sprite_jog = pygame.sprite.Group()
+    sprite_en = pygame.sprite.Group()
     jogador = Nave('jogador',all_sprites,all_bullets,imagem['sprites']['jogador'],imagem['tiros']['tiro'])
-    inimigo = Servidor(all_sprites,all_bullets,imagem['sprites']['servidor'],imagem['tiros']['tiro_servidor'])
+    inimigo = Servidor(all_sprites,bullet_enemy,imagem['sprites']['servidor'],imagem['tiros']['tiro_servidor'])
     # for i in range(v_jogador):
     #     lifes = Vidas(v_jogador, all_sprites, 'jogador', imagem['vida'], imagem['metade vida'])
     #     all_sprites.add(lifes)
@@ -33,8 +36,17 @@ def fase1(window):
     #     all_sprites.add(ini_lifes)
     all_sprites.add(jogador)
     all_sprites.add(inimigo)
+    sprite_jog.add(jogador)
+    sprite_en.add(inimigo)
     atira = False
     timer_shoot_servidor = 550
+    timer_special = 5000
+    duracao_f5 = 5000
+    timer_espera_f5 = True
+    contagem_espera = 15000
+    f5 = False
+    VIDA_JOGADOR = v_jogador
+    VIDA_SERVIDOR = servidor
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -59,10 +71,14 @@ def fase1(window):
                     #jogador move para baixo
                     jogador.speed_y = 2
                 #se a tecla for 'SPAÇO'
-                if event.key == pygame.K_SPACE:
+                if f5 == False:
+                    if event.key == pygame.K_SPACE:
                     #jogador atira
-                    jogador.shoot()
-                    atira = True
+                        jogador.shoot()
+                        atira = True
+                else:
+                    if event.key == pygame.K_F5 and pygame.K_SPACE:
+                        jogador.shoot()
 
             # se o evento for 'soltar a tecla'
             if event.type == pygame.KEYUP:
@@ -83,7 +99,11 @@ def fase1(window):
                     #para o movimento para baixo
                     jogador.speed_y = 0
                 if event.key == pygame.K_SPACE:
-                    atira = False
+                    if f5 == False:
+                        atira = False
+                    else:
+                        if event.key == pygame.K_F5:
+                            atira = False
             
         if atira:
             jogador.shoot()
@@ -92,14 +112,38 @@ def fase1(window):
             timer_shoot_servidor = 550
         else:
             timer_shoot_servidor -= 1
+        if timer_special == 0:
+            inimigo.special_shoot()
+            timer_special = 5000
+        else:
+            timer_special -= 1
             # if event.type == pygame.KEYDOWN:
             #     running = False
             #     state = RUNNING2
+        if f5:
+            duracao_f5 -= 1
+            print(duracao_f5)
+        if duracao_f5 == 0:
+            f5 = False
+            duracao_f5 = 5000
+            timer_espera_f5 = True
 
+        if timer_espera_f5:
+            contagem_espera -= 1
+        if contagem_espera == 0:
+            f5 = True
+            contagem_espera = 15000
         window.fill(WHITE)
         all_sprites.update()
         all_sprites.draw(window)
+        if pygame.sprite.groupcollide(bullet_enemy,sprite_jog,False,False):
+            VIDA_JOGADOR -= 1
+        if pygame.sprite.groupcollide(all_bullets,sprite_en,False,False):
+            VIDA_SERVIDOR -= 1
+        if VIDA_SERVIDOR == 0 or VIDA_JOGADOR == 0:
+            running = False
+            state = RUNNING2
         pygame.display.flip()
     return state
 
-fase1(screen)
+print(fase1(screen))
