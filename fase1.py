@@ -49,6 +49,9 @@ def fase1(window):
     VIDA_SERVIDOR = servidor
     back =  imagem['background']['1']
     write_f5 = FONT1.render('QUEDA DO SERVIDOR (while press space, aperte f5 para atirar)',False,(0,0,255))
+    pygame.mixer_music.load(musica['primeira fase'])
+    pygame.mixer_music.set_volume(0.5)
+    pygame.mixer.music.play(loops=-1)
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
