@@ -26,6 +26,7 @@ while running:
         state = faseFinal(tela)
     else:
         state = QUIT
+        running = False
 
 
 
