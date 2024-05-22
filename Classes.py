@@ -196,6 +196,89 @@ class BulletLeticia1(pygame.sprite.Sprite):
             if self.rect.x > LARGURA or self.rect.x < 0:
                 self.kill()
 
+class Servidor_bullet(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = imagem['sprites']['servidor']
+        self.hitbox = pygame.mask.from_surface(self.image)
+        self.rect = self.hitbox.get_rect()
+        self.rect.center = (x,y)
+        self.speedy = 5
+        self.timer_sp = 500
+        
+    def update(self):
+        if self.timer_sp == 0:
+            self.rect.y += self.speedy
+        else:
+            self.timer_sp -= 1
+        if self.rect.y > ALTURA:
+            self.timer_sp = 500
+            self.kill()
+
+class Servidor(pygame.sprite.Sprite):
+    def __init__(self,all_sprites,all_bullets,img,b_img):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.bullet_image = b_img
+        self.hitbox = pygame.mask.from_surface(self.image)
+        self.rect = self.hitbox.get_rect()
+        self.rect.x = 0
+        self.rect.y = 100
+        self.speed_x = 1
+        self.speed_y = 0
+        self.all_sprites = all_sprites
+        self.all_bullets = all_bullets
+        self.andando = 100
+        self.timer = 1000
+        self.direita = True
+        self.last_shot = pygame.time.get_ticks()
+        self.shoot_ticks = 100
+    def update(self):
+        if self.andando == 0:
+            self.speed_x = 0
+            self.speed_y = 0
+            self.timer -= 1
+            if self.timer == 0:
+                self.andando = 100
+                self.timer = 1000
+        else:
+            self.andando -= 1
+            if self.direita and self.rect.x < LARGURA-20:
+                self.speed_x = 1
+
+            else:
+                self.direita = False
+                self.speed_x = -1
+                if self.rect.x < 10:
+                    self.direita = True
+        
+
+        self.rect.x += self.speed_x
+        self.rect.y += self.speed_y
+    def shoot(self):
+        noww = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = noww - self.last_shot
+        if self.andando == 0:
+            if elapsed_ticks > self.shoot_ticks:
+                # Marca o tick da nova imagem.
+                self.last_shot = noww
+            if self.rect.x > LARGURA-90:    
+                new_bullet = Servidor_bullet(self.rect.x-75,self.rect.y)
+                self.all_bullets.add(new_bullet)
+                self.all_sprites.add(new_bullet)
+            if self.rect.x < 90:
+                new_bullet = Servidor_bullet(self.rect.x+150,self.rect.y)
+                self.all_bullets.add(new_bullet)
+                self.all_sprites.add(new_bullet)
+            if self.rect.x > 90 and self.rect.x < LARGURA-90:
+                bala_e = Servidor_bullet(self.rect.x-75,self.rect.y)
+                bala_d = Servidor_bullet(self.rect.x+150,self.rect.y)
+                self.all_bullets.add(bala_d)
+                self.all_sprites.add(bala_e)
+                self.all_bullets.add(bala_e)
+                self.all_sprites.add(bala_d)
+
 class BulletLeticiaL(pygame.sprite.Sprite):
     #inicia a construção da nave
     def __init__(self,image,x,y):
