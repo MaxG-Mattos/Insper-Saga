@@ -159,8 +159,8 @@ class Servidor_bullet(pygame.sprite.Sprite):
         self.hitbox = pygame.mask.from_surface(self.image)
         self.rect = self.hitbox.get_rect()
         self.rect.center = (x,y)
-        self.speedy = 5*scale
-        self.timer_sp = 500//scale
+        self.speedy = 7*scale
+        self.timer_sp = 500
         
     def update(self):
         if self.timer_sp == 0:
@@ -840,7 +840,7 @@ class Pelicano(pygame.sprite.Sprite):
         self.rect.x = 60
         self.rect.y = 200
         self.move_type = 1
-        self.speed_x = 1
+        self.speed_x = 2
         self.speed_y = 0    
     def update(self):
         if self.pare > 0:
@@ -1114,7 +1114,7 @@ class BulletPelDiaUPE(pygame.sprite.Sprite):
         #movimenta o tiro no eixo y
         if self.rect.y <= 0:
             self.speedy = 1
-            self.speedx = 2
+            self.speedx = 1
         if self.rect.x >= 0:
             self.speedy = 1
             self.speedx = -1
@@ -1147,7 +1147,7 @@ class BulletPelDiaUP(pygame.sprite.Sprite):
         #movimenta o tiro no eixo y
         if self.rect.y <= 0:
             self.speedy = 1
-            self.speedx = -2
+            self.speedx = -1
         if self.rect.x <= 0:
             self.speedy = 1
             self.speedx = 1
