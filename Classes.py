@@ -159,7 +159,7 @@ class Servidor_bullet(pygame.sprite.Sprite):
         self.hitbox = pygame.mask.from_surface(self.image)
         self.rect = self.hitbox.get_rect()
         self.rect.center = (x,y)
-        self.speedy = 5*scale
+        self.speedy = 5
         self.timer_sp = 500//scale
         
     def update(self):
@@ -193,8 +193,8 @@ class Servidor(pygame.sprite.Sprite):
         self.speed_y = 0
         self.all_sprites = all_sprites
         self.all_bullets = all_bullets
-        self.andando = 100//scale
-        self.timer = 1000//scale
+        self.andando = 500//scale
+        self.timer = 500//scale
         self.direita = True
         self.last_shot = pygame.time.get_ticks()
         self.shoot_ticks = 100
@@ -205,21 +205,21 @@ class Servidor(pygame.sprite.Sprite):
             self.speed_y = 0
             self.timer -= 1
             if self.timer == 0:
-                self.andando = 100//scale
-                self.timer = 1000//scale
+                self.andando = 500//scale
+                self.timer = 500//scale
         else:
             self.andando -= 1
             if self.direita and self.rect.x < LARGURA-20:
-                self.speed_x = 1*scale
+                self.speed_x = 1
 
             else:
                 self.direita = False
-                self.speed_x = -1*scale
+                self.speed_x = -1
                 if self.rect.x < -20:
                     self.direita = True
         if self.special == True:
             self.speed_x = 0
-            self.speed_y = 5*scale
+            self.speed_y = 5
         
 
         self.rect.x += self.speed_x
