@@ -33,6 +33,8 @@ def faseFinal(window):
     sprite_en.add(pelicano)
     VIDA_JOGADOR = v_jogador
     VIDAS_RESINA = resina
+    jogador.speed_x = 0
+    jogador.speed_y = 0
     while running:
         if pelicano.pare <= 0 and pelicano.tempo_parada > 0:
             if pelicano.rect.y >= ALTURA - 300:
@@ -152,6 +154,8 @@ def faseFinal(window):
             running = False
             state = INIT       
         pygame.display.flip()
+    # jogador.speed_x = 0
+    # jogador.speed_y = 0 
     return state
 
  

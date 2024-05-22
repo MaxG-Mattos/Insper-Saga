@@ -16,7 +16,7 @@ img_inimigo_2 = pygame.image.load('Assets_em_questao\\Leticia.png')
 inimig_final = pygame.image.load('Assets_em_questao\\Resina.png')
 background1 = pygame.image.load('Assets_em_questao\\sala dos professores.png')
 background2 = pygame.image.load('Assets_em_questao\\Sala de Aula.png')
-
+background3 = pygame.image.load('Assets_em_questao\\FundoResina.png')
 
 imagem_vida = pygame.transform.scale(vidas,(720/10,730/10))
 imagem_metade = pygame.transform.scale(perca_boss,(359/10,730/10))
@@ -29,6 +29,7 @@ imagem_let = pygame.transform.scale(img_inimigo_2,(30*2.2,35*1.8))
 imagem_resi = pygame.transform.scale(inimig_final,(25*2.3,35*1.8))
 imagem_back1 = pygame.transform.scale(background1,(801*1.1, 786*1.1))
 imagem_back2 = pygame.transform.scale(background2,(762*1.1, 822*1.1))
+imagem_back3 = pygame.transform.scale(background3,(754*1.1, 772*1.1))
 
 musica = {}
 musica['start'] = menu_inicial
@@ -54,4 +55,5 @@ imagem['metade vida'] = imagem_metade
 imagem['background'] = {}
 imagem['background']['1'] = imagem_back1
 imagem['background']['2'] = imagem_back2
-print(musica['boss final'])
+imagem['background']['3'] = imagem_back3
+# print(musica['boss final'])

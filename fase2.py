@@ -34,6 +34,9 @@ def fase2(window):
     VIDAS_LETICIA = leticia
     back =  imagem['background']['2']
     window = window
+    jogador.speed_x = 0
+    jogador.speed_y = 0
+    # pygame.time.wait(80)
     while running:
         if atira:
             jogador.shoot()
@@ -172,6 +175,8 @@ def fase2(window):
             window.blit(imagem['vida'],(70,ALTURA-70))
             window.blit(imagem['vida'],(140,ALTURA-70))
         pygame.display.flip()
+    # jogador.speed_x = 0
+    # jogador.speed_y = 0
     return state
 
 # print(fase2(screen)) 
