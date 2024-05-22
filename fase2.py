@@ -100,9 +100,10 @@ def fase2(window):
         #     else:
         #         inimigo.shoot()
         #         inimigo.shoot_left()
-        # window.blit(back, (0,0))
-        window.fill(RED)
+        window.fill(BLACK)
         all_sprites.update()
+        window.blit(back, (70, 120))
+        # all_sprites.update()
         all_sprites.draw(window)      
         pygame.display.flip()
     return state
