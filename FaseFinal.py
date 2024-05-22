@@ -8,7 +8,7 @@ from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, 
 pygame.init()
 pygame.mixer_music.load(musica['boss final'])
 pygame.mixer_music.set_volume(0.5)
-screen = TELA
+# screen = TELA
 pygame.display.set_caption("Insper Saga: A Vida Não Tá Fácil")
 RUNNING5 = 5 
 pygame.mixer.music.play(loops=-1)
@@ -154,4 +154,4 @@ def faseFinal(window):
         pygame.display.flip()
     return state
 
-faseFinal(screen)
+ 

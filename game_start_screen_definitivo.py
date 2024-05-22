@@ -11,7 +11,7 @@ titulo = "Insper Saga: A Vida Não Tá Fácil"
 txt = "Aperte qualquer botão para começar!"
 # ALTURA = 400
 # LARGURA = 500
-tela = TELA
+# tela = TELA
 pygame.display.set_caption("Insper Saga: A Vida Não Tá Fácil")
 pos = (170, 540)
 dramatis = (200, 200) #posição do título
@@ -27,7 +27,8 @@ class Blink():
         self.called = pygame.time.get_ticks()
         self.lim = 1000
         # self.low = 123
-    def update(self):
+    def update(self, window):
+        tela = window
         now = pygame.time.get_ticks()
         passado = now - self.called
         tela.blit(self.title, dramatis)
@@ -39,7 +40,7 @@ class Blink():
 var = Blink(txt, titulo, font)
 pygame.mixer.music.play(loops=-1)
 def tela_inicio(window):
-    window = TELA
+    window = window
     vel = pygame.time.Clock()
     running = True
     state = None
@@ -49,13 +50,15 @@ def tela_inicio(window):
             if event.type == pygame.QUIT:
                 running = False
                 state = QUIT
+                return state
             if event.type == pygame.KEYDOWN:
                 CONTROLES = True
                 running = False
                 state = RUNNING1
+                return state
         window.fill(BLACK)
-        var.update()
+        var.update(window)
         pygame.display.flip()
         pygame.time.wait(600)
     return state
-tela_inicio(tela)
+# tela_inicio(tela)
