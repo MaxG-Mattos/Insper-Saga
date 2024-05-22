@@ -626,14 +626,14 @@ class Nave_Leticia(pygame.sprite.Sprite):
         self.lastduptiro = pygame.time.get_ticks()
         self.lastdeuptiro = pygame.time.get_ticks()
         self.last_move = pygame.time.get_ticks() #tempo desde o ultimo movimento
-        self.pare = 3000
-        self.tempo_parada = 3000
-        self.shoot_ticks = 340 #tempo pro tiro
+        self.pare = 1000
+        self.tempo_parada = 1000
+        self.shoot_ticks = 350 #tempo pro tiro
 #posição
         self.rect.x = 200
         self.rect.y = 100
-        self.speed_x = 6
-        self.speed_y = 6
+        self.speed_x = 8
+        self.speed_y = 8
         #função de ações da Nave
     def update(self):
         if self.pare > 0:
@@ -643,37 +643,37 @@ class Nave_Leticia(pygame.sprite.Sprite):
             self.rect.y += self.speed_y
             if self.rect.x > LARGURA-75:
                 self.speed_x = 0 
-                self.speed_y = 6
+                self.speed_y = 8
             if self.rect.y > ALTURA -475:
-                self.speed_x = -6
+                self.speed_x = -8
                 self.speed_y = 0
             if self.rect.x < 25 and self.rect.y > ALTURA -475:
                 self.speed_x = 0 
-                self.speed_y = -6
+                self.speed_y = -8
             if self.rect.x < 25 and self.rect.y < 25:
-                self.speed_x = 6
+                self.speed_x = 8
                 self.speed_y = 0
         if self.pare <= 0 and self.tempo_parada > 0:
             self.rect.x += 0
             self.rect.y += 0
             self.tempo_parada -= 1
         if self.pare <= 0 and self.tempo_parada <= 0:
-            self.pare = 3000
-            self.tempo_parada = 5000
+            self.pare = 1000
+            self.tempo_parada = 1000
             self.rect.x += self.speed_x
             #movimento no eixo y
             self.rect.y += self.speed_y
             if self.rect.x > LARGURA-75:
                 self.speed_x = 0 
-                self.speed_y = 6
+                self.speed_y = 8
             if self.rect.y > ALTURA -475:
-                self.speed_x = -6
+                self.speed_x = -8
                 self.speed_y = 0
             if self.rect.x < 25 and self.rect.y > ALTURA -475:
                 self.speed_x = 0 
-                self.speed_y = -6
+                self.speed_y = -8
             if self.rect.x < 25 and self.rect.y < 25:
-                self.speed_x = 6
+                self.speed_x = 8
                 self.speed_y = 0            
     def Nshot(self):
          # Verifica se pode atirar
