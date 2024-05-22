@@ -159,8 +159,8 @@ class Servidor_bullet(pygame.sprite.Sprite):
         self.hitbox = pygame.mask.from_surface(self.image)
         self.rect = self.hitbox.get_rect()
         self.rect.center = (x,y)
-        self.speedy = 7*scale
-        self.timer_sp = 500
+        self.speedy = 5*scale
+        self.timer_sp = 500//scale
         
     def update(self):
         if self.timer_sp == 0:
