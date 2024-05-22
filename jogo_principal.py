@@ -18,11 +18,11 @@ running = True
 while running:
     if state == INIT:
         state = tela_inicio(tela)
-    elif state == RUNNING1 and state != 0:
+    elif state == RUNNING1:
         state = fase1(tela)
-    elif state == RUNNING2 and state != 0:
+    elif state == RUNNING2:
         state = fase2(tela)
-    elif state == RUNNING5 and state != 0:
+    elif state == RUNNING5:
         state = faseFinal(tela)
     else:
         state = QUIT
