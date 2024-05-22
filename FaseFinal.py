@@ -3,7 +3,7 @@ import pygame
 import time
 from assets import musica, imagem
 from Classes import *
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED, resina
 
 pygame.init()
 pygame.mixer_music.load(musica['boss final'])
@@ -22,10 +22,17 @@ def faseFinal(window):
     atira = False
     all_sprites = pygame.sprite.Group()
     all_bullets = pygame.sprite.Group()
+    bullet_enemy = pygame.sprite.Group()
+    sprite_jog = pygame.sprite.Group()
+    sprite_en = pygame.sprite.Group()
     jogador = Nave('jogador', all_sprites, all_bullets, imagem['sprites']['Jogador'], imagem['tiros']['tiro'])
-    pelicano = Pelicano(all_sprites, all_bullets, imagem['sprites']['resina'], imagem['tiros']['tiro'])
+    pelicano = Pelicano(all_sprites, bullet_enemy, imagem['sprites']['resina'], imagem['tiros']['tiro'])
     all_sprites.add(jogador)
     all_sprites.add(pelicano)
+    sprite_jog.add(jogador)
+    sprite_en.add(pelicano)
+    VIDA_JOGADOR = v_jogador
+    VIDAS_RESINA = resina
     while running:
         if pelicano.pare <= 0 and pelicano.tempo_parada > 0:
             if pelicano.rect.y >= ALTURA - 300:
@@ -85,7 +92,65 @@ def faseFinal(window):
                     atira = False
         window.fill(RED)
         all_sprites.update()
-        all_sprites.draw(window)           
+        all_sprites.draw(window)  
+        if pygame.sprite.groupcollide(bullet_enemy,sprite_jog,True,False):
+            VIDA_JOGADOR -= 1
+        if pygame.sprite.groupcollide(all_bullets,sprite_en,True,False):
+            VIDAS_RESINA -= 1
+
+        if VIDAS_RESINA == 10:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+            window.blit(imagem['vida'],(140,0))
+            window.blit(imagem['vida'],(210,0))
+            window.blit(imagem['vida'],(280,0))
+        if VIDAS_RESINA == 9:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+            window.blit(imagem['vida'],(140,0))
+            window.blit(imagem['vida'],(210,0))
+            window.blit(imagem['metade vida'],(280,0))
+        if VIDAS_RESINA == 8:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+            window.blit(imagem['vida'],(140,0))
+            window.blit(imagem['vida'],(210,0))
+        if VIDAS_RESINA == 7:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+            window.blit(imagem['vida'],(140,0))
+            window.blit(imagem['metade vida'],(210,0))
+        if VIDAS_RESINA == 6:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+            window.blit(imagem['vida'],(140,0))
+        if VIDAS_RESINA == 5:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+            window.blit(imagem['metade vida'],(140,0))
+        if VIDAS_RESINA == 4:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+        if VIDAS_RESINA == 3:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['metade vida'],(70,0))
+        if VIDAS_RESINA == 2:
+            window.blit(imagem['vida'],(0,0))
+        if VIDAS_RESINA == 1:
+            window.blit(imagem['metade vida'],(0,0))
+        if VIDA_JOGADOR == 1:
+            window.blit(imagem['vida'],(0,ALTURA-70))
+        if VIDA_JOGADOR == 2:
+            window.blit(imagem['vida'],(0,ALTURA-70))
+            window.blit(imagem['vida'],(70,ALTURA-70))
+        if VIDA_JOGADOR == 3:
+            window.blit(imagem['vida'],(0,ALTURA-70))
+            window.blit(imagem['vida'],(70,ALTURA-70))
+            window.blit(imagem['vida'],(140,ALTURA-70))
+
+        if VIDAS_RESINA == 0 or VIDA_JOGADOR == 0:
+            running = False
+            state = INIT       
         pygame.display.flip()
     return state
 

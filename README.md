@@ -1,4 +1,2 @@
-# Insper Saga: A Vida Não Tá Fácil
-##Integrantes: Denis Alonso, Max Mattos, Rafael Kauffmann
-#Como Baixar?
-
+# Pygame
+Pygame :3                                                                                     Quando for abrir no VS Code abrir SÓ A PASTA DO MAIN. Se a pasta estiver dentro de outra abra exclusivamente a pasta baixada do GitHub, se não o som não funciona

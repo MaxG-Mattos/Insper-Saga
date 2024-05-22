@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from sys import exit
 from assets import * 
-from configuracoes import ALTURA,LARGURA, v_jogador, crianca, servidor, bia, leticia
+from configuracoes import ALTURA,LARGURA, v_jogador, crianca, servidor, bia, leticia,tam_servidor,scale
 #inicia o jogo
 # pygame.init()
 # #  === Classes ===
@@ -79,7 +79,7 @@ class Nave(pygame.sprite.Sprite):
             # Marca o tick da nova imagem.
                 self.last_shot = now
         #cria uma sprite (tiro) ['atirar']
-                tiro = Bullet('jogador',self.imagem_tiro,self.rect.x+65,self.rect.y+75)
+                tiro = Bullet('jogador',self.imagem_tiro,self.rect.x+25,self.rect.y-10)
             #adiciona o tiro no grupo todas_as_sprites, necessario para a vizualização do tiro 
                 self.all_sprites.add(tiro)
             #adiciona o tiro no grupo todos os tiros, necessario para a vizualização do tiro 
@@ -159,8 +159,8 @@ class Servidor_bullet(pygame.sprite.Sprite):
         self.hitbox = pygame.mask.from_surface(self.image)
         self.rect = self.hitbox.get_rect()
         self.rect.center = (x,y)
-        self.speedy = 5
-        self.timer_sp = 500
+        self.speedy = 5*scale
+        self.timer_sp = 500//scale
         
     def update(self):
         if self.timer_sp == 0:
@@ -168,7 +168,7 @@ class Servidor_bullet(pygame.sprite.Sprite):
         else:
             self.timer_sp -= 1
         if self.rect.y > ALTURA:
-            self.timer_sp = 500
+            self.timer_sp = 500//scale
             self.kill()
         
     def update(self):
@@ -177,7 +177,7 @@ class Servidor_bullet(pygame.sprite.Sprite):
         else:
             self.timer_sp -= 1
         if self.rect.y > ALTURA:
-            self.timer_sp = 500
+            self.timer_sp = 500//scale
             self.kill()
 
 class Servidor(pygame.sprite.Sprite):
@@ -193,8 +193,8 @@ class Servidor(pygame.sprite.Sprite):
         self.speed_y = 0
         self.all_sprites = all_sprites
         self.all_bullets = all_bullets
-        self.andando = 100
-        self.timer = 1000
+        self.andando = 100//scale
+        self.timer = 1000//scale
         self.direita = True
         self.last_shot = pygame.time.get_ticks()
         self.shoot_ticks = 100
@@ -205,21 +205,21 @@ class Servidor(pygame.sprite.Sprite):
             self.speed_y = 0
             self.timer -= 1
             if self.timer == 0:
-                self.andando = 100
-                self.timer = 1000
+                self.andando = 100//scale
+                self.timer = 1000//scale
         else:
             self.andando -= 1
             if self.direita and self.rect.x < LARGURA-20:
-                self.speed_x = 1
+                self.speed_x = 1*scale
 
             else:
                 self.direita = False
-                self.speed_x = -1
+                self.speed_x = -1*scale
                 if self.rect.x < -20:
                     self.direita = True
         if self.special == True:
             self.speed_x = 0
-            self.speed_y = 5
+            self.speed_y = 5*scale
         
 
         self.rect.x += self.speed_x
@@ -835,7 +835,7 @@ class Pelicano(pygame.sprite.Sprite):
         self.pare = 3500 #para depois de x segundos
         self.tempo_parada = 4000 #fica parado por x segundos
         self.tempofase1 = 20000 #tempo no movetype
-        self.shoot_ticks = 370 #tempo pro tiro
+        self.shoot_ticks = 340 #tempo pro tiro
 #posição
         self.rect.x = 60
         self.rect.y = 200
@@ -1052,7 +1052,7 @@ class BulletPelDiaE(pygame.sprite.Sprite):
         #movimenta o tiro no eixo y
         if self.rect.x <= 0:
             self.speedy = 1
-            self.speedx = 2
+            self.speedx = 1
         if self.rect.y < 0:
             self.kill()
         self.rect.x += self.speedx
@@ -1075,17 +1075,17 @@ class BulletPelDia(pygame.sprite.Sprite):
         # self.tempo_h = 200
         # self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
-        self.speedy = -2
-        self.speedx = 2
+        self.speedy = -1
+        self.speedx = 1
     #funcao que define as ações do tiro
     def update(self):
         #movimenta o tiro no eixo y
         if self.rect.x >= 750:
             self.speedy = 1
-            self.speedx = -2
+            self.speedx = -1
         if self.rect.y >= 750:
             self.speedy = 1
-            self.speedx = -2
+            self.speedx = -1
         if self.rect.y >=750:
             self.kill()
         self.rect.x += self.speedx
@@ -1107,8 +1107,8 @@ class BulletPelDiaUPE(pygame.sprite.Sprite):
         # self.tempo_h = 200
         # self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
-        self.speedy = -2
-        self.speedx = -2
+        self.speedy = -1
+        self.speedx = -1
     #funcao que define as ações do tiro
     def update(self):
         #movimenta o tiro no eixo y
@@ -1117,7 +1117,7 @@ class BulletPelDiaUPE(pygame.sprite.Sprite):
             self.speedx = 2
         if self.rect.x >= 0:
             self.speedy = 1
-            self.speedx = -2
+            self.speedx = -1
         if self.rect.y >= 750:
             self.kill()
         self.rect.x += self.speedx
@@ -1141,7 +1141,7 @@ class BulletPelDiaUP(pygame.sprite.Sprite):
         # self.tempo_v = 100
         # self.wait = 500 #espera pros tiros cairem
         self.speedy = -1
-        self.speedx = 2
+        self.speedx = 1
     #funcao que define as ações do tiro
     def update(self):
         #movimenta o tiro no eixo y
@@ -1150,8 +1150,8 @@ class BulletPelDiaUP(pygame.sprite.Sprite):
             self.speedx = -2
         if self.rect.x <= 0:
             self.speedy = 1
-            self.speedx = 2
+            self.speedx = 1
         if self.rect.y >= 750:
             self.kill()
         self.rect.x += self.speedx
-        self.rect.y += self.speedy             
+        self.rect.y += self.speedy            

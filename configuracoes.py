@@ -1,4 +1,5 @@
 import pygame
+from assets import imagem
 pygame.font.init()
 LARGURA = 750
 ALTURA = 750
@@ -15,10 +16,14 @@ RUNNING2 = 2
 RUNNING3 = 3
 RUNNING4 = 4
 RUNNING5 = 5
-#vida jogadores
-servidor = 6
+#vidas na prática
+servidor = 120 #cada hit é -1
 v_jogador = 3
 leticia = 10
-crianca = 4
-bia = 3
-pelicano = 10
+crianca = 80
+bia = 60
+resina = 10
+
+#tamanhos sprites
+tam_servidor = 64
+scale = 2

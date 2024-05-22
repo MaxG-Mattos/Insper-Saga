@@ -1,7 +1,7 @@
 import random
 import pygame
 import time
-from assets import musica, imagens
+from assets import musica, imagem
 from game_start_screen_definitivo import tela_inicio
 from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RUNNING2, RUNNING3, RUNNING4, RUNNING5
 from fase1 import fase1

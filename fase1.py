@@ -4,7 +4,7 @@ import time
 from assets import musica, imagem
 # from Classes import Nave, Bullet
 from Classes import Nave, Bullet, Servidor
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, v_jogador, servidor,tam_servidor
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, v_jogador, servidor,tam_servidor, ALTURA,scale
 
 pygame.init()
 pygame.mixer_music.load(musica['primeira fase'])
@@ -26,7 +26,7 @@ def fase1(window):
     bullet_enemy = pygame.sprite.Group()
     sprite_jog = pygame.sprite.Group()
     sprite_en = pygame.sprite.Group()
-    jogador = Nave('jogador',all_sprites,all_bullets,imagem['sprites']['jogador'],imagem['tiros']['tiro'])
+    jogador = Nave('jogador',all_sprites,all_bullets,imagem['sprites']['Jogador'],imagem['tiros']['tiro'])
     inimigo = Servidor(all_sprites,bullet_enemy,imagem['sprites']['servidor'],imagem['tiros']['tiro_servidor'])
     # for i in range(v_jogador):
     #     lifes = Vidas(v_jogador, all_sprites, 'jogador', imagem['vida'], imagem['metade vida'])
@@ -39,14 +39,15 @@ def fase1(window):
     sprite_jog.add(jogador)
     sprite_en.add(inimigo)
     atira = False
-    timer_shoot_servidor = 550
-    timer_special = 5000
-    duracao_f5 = 5000
+    timer_shoot_servidor = 550//scale
+    timer_special = 5000//scale
+    duracao_f5 = 5000//scale
     timer_espera_f5 = True
-    contagem_espera = 15000
+    contagem_espera = 15000//scale
     f5 = False
-    VIDA_JOGADOR = v_jogador
+    VIDA_JOGADOR = v_jogador*22
     VIDA_SERVIDOR = servidor
+    back =  imagem['background']['1']
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -57,19 +58,19 @@ def fase1(window):
                 #se a tecla for 'D'
                 if event.key == pygame.K_d:
                     #jogador move para direita
-                    jogador.speed_x = 2
+                    jogador.speed_x = 3
                 #se a tecla for 'A'
                 if event.key == pygame.K_a:
                     #jogador move para esquerda
-                    jogador.speed_x = -2
+                    jogador.speed_x = -3
                 #se a tecla for 'W'
                 if event.key == pygame.K_w:
                     #jogador move para cima
-                    jogador.speed_y = -2
+                    jogador.speed_y = -3
                 #se a tecla for 'S'
                 if event.key == pygame.K_s:
                     #jogador move para baixo
-                    jogador.speed_y = 2
+                    jogador.speed_y = 3
                 #se a tecla for 'SPAÇO'
                 if f5 == False:
                     if event.key == pygame.K_SPACE:
@@ -84,20 +85,13 @@ def fase1(window):
             if event.type == pygame.KEYUP:
                 #se a tecla for D
                 if event.key == pygame.K_d:
-                    #para o movimento da direita
-                    jogador.speed_x = 0
-                #se a tecla for A
+                    jogador.speed_x -= 3
                 if event.key == pygame.K_a:
-                    #para o movimento da esquerda
-                    jogador.speed_x = 0
-                #se a tecla for W
-                if event.key == pygame.K_w:
-                    #para o movimento para cima
-                    jogador.speed_y = 0
-                #se a tecla for S
+                    jogador.speed_x += 3
                 if event.key == pygame.K_s:
-                    #para o movimento para baixo
-                    jogador.speed_y = 0
+                    jogador.speed_y -= 3
+                if event.key == pygame.K_w:
+                    jogador.speed_y += 3
                 if event.key == pygame.K_SPACE:
                     if f5 == False:
                         atira = False
@@ -109,12 +103,12 @@ def fase1(window):
             jogador.shoot()
         if timer_shoot_servidor == 0:
             inimigo.shoot()
-            timer_shoot_servidor = 550
+            timer_shoot_servidor = 550//scale
         else:
             timer_shoot_servidor -= 1
         if timer_special == 0:
             inimigo.special_shoot()
-            timer_special = 5000
+            timer_special = 5000//scale
         else:
             timer_special -= 1
             # if event.type == pygame.KEYDOWN:
@@ -125,24 +119,58 @@ def fase1(window):
             print(duracao_f5)
         if duracao_f5 == 0:
             f5 = False
-            duracao_f5 = 5000
+            duracao_f5 = 5000//scale
             timer_espera_f5 = True
 
         if timer_espera_f5:
             contagem_espera -= 1
         if contagem_espera == 0:
             f5 = True
-            contagem_espera = 15000
-        window.fill(WHITE)
+            contagem_espera = 15000//scale
+        window.fill(BLACK)
+        window.blit(back, (50, 50))
         all_sprites.update()
         all_sprites.draw(window)
         if pygame.sprite.groupcollide(bullet_enemy,sprite_jog,False,False):
             VIDA_JOGADOR -= 1
+            print(VIDA_JOGADOR)
         if pygame.sprite.groupcollide(all_bullets,sprite_en,False,False):
             VIDA_SERVIDOR -= 1
-        if VIDA_SERVIDOR == 0 or VIDA_JOGADOR == 0:
-            running = False
-            state = RUNNING2
+        if pygame.sprite.collide_mask(jogador,inimigo):
+            VIDA_JOGADOR -= 1
+            print(VIDA_JOGADOR)
+            VIDA_SERVIDOR -= 1
+        if VIDA_SERVIDOR == 0:
+            return RUNNING2
+        if VIDA_JOGADOR == 0:
+            state = INIT
+        if VIDA_SERVIDOR == 120:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+            window.blit(imagem['vida'],(140,0))
+        if VIDA_SERVIDOR >= 100 and VIDA_SERVIDOR < 120:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+            window.blit(imagem['metade vida'],(140,0))
+        if VIDA_SERVIDOR >= 80 and VIDA_SERVIDOR < 100:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['vida'],(70,0))
+        if VIDA_SERVIDOR >= 60 and VIDA_SERVIDOR < 80:
+            window.blit(imagem['vida'],(0,0))
+            window.blit(imagem['metade vida'],(70,0))
+        if VIDA_SERVIDOR >= 40 and VIDA_SERVIDOR < 60:
+            window.blit(imagem['vida'],(0,0))
+        if VIDA_SERVIDOR >= 20 and VIDA_SERVIDOR < 40:
+            window.blit(imagem['metade vida'],(0,0))
+        if VIDA_JOGADOR < 2*22 and VIDA_JOGADOR > 0:
+            window.blit(imagem['vida'],(0,ALTURA-70))
+        if VIDA_JOGADOR < v_jogador*22 and VIDA_JOGADOR >= 2*22:
+            window.blit(imagem['vida'],(0,ALTURA-70))
+            window.blit(imagem['vida'],(70,ALTURA-70))
+        if VIDA_JOGADOR == v_jogador*22:
+            window.blit(imagem['vida'],(0,ALTURA-70))
+            window.blit(imagem['vida'],(70,ALTURA-70))
+            window.blit(imagem['vida'],(140,ALTURA-70))
         pygame.display.flip()
     return state
 
