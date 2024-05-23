@@ -3,7 +3,7 @@ import pygame
 import time
 from assets import musica, imagem
 from Classes import *
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED, leticia, v_jogador, RUNNING5
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, RED, leticia, v_jogador, RUNNING5, ENTRE
 
 pygame.init()
 pygame.mixer_music.load(musica['segunda fase'])
@@ -34,8 +34,6 @@ def fase2(window):
     VIDAS_LETICIA = leticia
     back =  imagem['background']['2']
     window = window
-    jogador.speed_x = 0
-    jogador.speed_y = 0
     pygame.mixer_music.load(musica['segunda fase'])
     pygame.mixer_music.set_volume(0.5)
     pygame.mixer.music.play(loops=-1)
@@ -69,25 +67,25 @@ def fase2(window):
                 state = QUIT
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
-                    jogador.speed_x += 3
+                    jogador.speed_x += 4
                 if event.key == pygame.K_a:
-                    jogador.speed_x -= 3
+                    jogador.speed_x -= 4
                 if event.key == pygame.K_s:
-                    jogador.speed_y += 3
+                    jogador.speed_y += 4
                 if event.key == pygame.K_w:
-                    jogador.speed_y -= 3
+                    jogador.speed_y -= 4
                 if event.key == pygame.K_SPACE:
                     jogador.shoot()
                     atira = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_d:
-                    jogador.speed_x -= 3
+                    jogador.speed_x -= 4
                 if event.key == pygame.K_a:
-                    jogador.speed_x += 3
+                    jogador.speed_x += 4
                 if event.key == pygame.K_s:
-                    jogador.speed_y -= 3
+                    jogador.speed_y -= 4
                 if event.key == pygame.K_w:
-                    jogador.speed_y += 3
+                    jogador.speed_y += 4
                 if event.key == pygame.K_SPACE:
                     atira = False
                 # running = False -->condição passagem de fase
@@ -113,7 +111,7 @@ def fase2(window):
             
         window.fill(BLACK)
         all_sprites.update()
-        window.blit(back, (70, 120))
+        window.blit(back, (0, 0))
         all_sprites.draw(window)  
         if pygame.sprite.groupcollide(bullet_enemy,sprite_jog,True,False):
             VIDAS_JOGADOR -= 1
@@ -162,7 +160,7 @@ def fase2(window):
         if VIDAS_LETICIA == 1:
             window.blit(imagem['metade vida'],(0,0))
         if VIDAS_LETICIA == 0:
-            state = RUNNING5
+            state = ENTRE
             running = False
         if VIDAS_JOGADOR == 0:
             state = INIT
