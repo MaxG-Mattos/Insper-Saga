@@ -15,7 +15,7 @@ Como jogar:
  - Tecla de disparo: Espaço.
 
 Como abrir o jogo:
- Ao abrir o código no VS Code, executar APENAS a pasta MAIN. Se a pasta estiver dentro de outra abra exclusivamente a pasta baixada do GitHub, se não o som não funciona.
+ Vá na aba 'Code' verde no repositório do GitHub, clique nela e procure a opção de 'baixar como zip', então prossiga unzipar ela após ser baixada, caso o seu computador não tenha uma função de extração nativa nele é possível baixar o WinRar ou 7zip para extrair/unzipar a pasta. Abra o VS Code ou sua plataforma de programação mais familiar, clique em "File" e vá em "Open Folder", então prossiga a selecionar a pasta Insper-Saga-main e abra as pastas até a pasta 'Assets em Questao' aparecer na tela, então, sem abri-la, aperte ENTER. Na sua plataforma de programação deve então aparecer os arquivos de programa mais a pasta "Assets em Questao", clique no arquivo de programa 'jogo_principal.py', rode o arquivo, e se divirta!
 
 Observações:
  - A hitbox do personagem principal (Humberto) é menor que sua sprite. Isso é intencional visto o estilo de jogo (Fixed Shooter).
