@@ -832,8 +832,8 @@ class Pelicano(pygame.sprite.Sprite):
         self.last_tiro_jog = pygame.time.get_ticks()
         #tempo desde o ultimo movimento
         self.last_move = pygame.time.get_ticks() 
-        self.pare = 1000 #para depois de x segundos
-        self.tempo_parada = 1000 #fica parado por x segundos
+        self.pare = 600 #para depois de x segundos
+        self.tempo_parada = 250 #fica parado por x segundos
         self.tempofase1 = 20000 #tempo no movetype
         self.shoot_ticks = 300 #tempo pro tiro
 #posição
@@ -857,7 +857,7 @@ class Pelicano(pygame.sprite.Sprite):
                 if self.rect.x < 25:
                     self.speed_x = 5
                     self.speed_y = 6
-                if self.rect.y > ALTURA:
+                if self.rect.y > ALTURA - 75:
                     self.speed_x = 6
                     self.speed_y = -6
                 if self.rect.x == LARGURA:
@@ -871,8 +871,8 @@ class Pelicano(pygame.sprite.Sprite):
             self.tempo_parada -= 1
             
         if self.pare <= 0 and self.tempo_parada <= 0:
-            self.pare = 1000
-            self.tempo_parada = 1000
+            self.pare = 600
+            self.tempo_parada = 250
             self.rect.x += self.speed_x
             self.rect.y += self.speed_y
             if self.rect.x > LARGURA - 75:

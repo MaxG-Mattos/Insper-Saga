@@ -51,6 +51,8 @@ def faseFinal(window):
                 pelicano.shoot_left_up()
                 pelicano.shoot_dia_up()
                 pelicano.shoot_diaE_up()
+                pelicano.shoot_normal_baixo()
+                pelicano.shoot_normal()
                 pelicano.shoot_diagonal_direita()
                 pelicano.shoot_diagonal_esquerda()
             if pelicano.rect.x >= LARGURA - 375:
@@ -59,6 +61,7 @@ def faseFinal(window):
                 pelicano.shoot_diagonal_direita()
                 pelicano.shoot_diagonal_esquerda()
                 pelicano.shoot_normal_baixo()
+                pelicano.shoot_normal()
                 pelicano.shoot_dia_up()
                 pelicano.shoot_diaE_up()
             if pelicano.rect.y <= 200:
