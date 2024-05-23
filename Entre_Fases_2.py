@@ -2,22 +2,19 @@ import pygame
 import time
 import random
 from assets import musica
-from configuracoes import QUIT, TELA
+from configuracoes import QUIT, TELA, RUNNING2
 pygame.init()
-pygame.mixer.music.load(musica['start'])
-pygame.mixer.music.set_volume(0.4)
-font = pygame.font.SysFont('arial', 32)
-titulo = "Insper Saga: A Vida Não Tá Fácil"
-txt = "Aperte espaço para começar!"
+font = pygame.font.SysFont('arial', 30)
+titulo = "O servidor já caiu, só falta dar problema com Ninja agora..."
+txt = "Aperte espaço quando estiver pronto"
 # ALTURA = 400
 # LARGURA = 500
 # tela = TELA
 pygame.display.set_caption("Insper Saga: A Vida Não Tá Fácil")
-pos = (190, 540)
-dramatis = (180, 150) #posição do título
+pos = (165, 540)
+dramatis = (55, 200) #posição do título
 FPS = 60
 BLACK = (0,0,0)
-RUNNING1 = 1 #primeira fase
 class Blink():
     def __init__(self, txt, titulo, font):
         self.statement = font.render(txt, True, (255,255,255))
@@ -37,13 +34,12 @@ class Blink():
         # else:
         #     tela.blit(self.occult, pos)
 var = Blink(txt, titulo, font)
-pygame.mixer.music.play(loops=-1)
-def tela_inicio(window):
+def ninja_time(window):
     window = window
     vel = pygame.time.Clock()
     running = True
     state = None
-    pygame.mixer.music.load(musica['start'])
+    pygame.mixer.music.load(musica['terceira fase'])
     pygame.mixer.music.set_volume(0.4)
     pygame.mixer.music.play(loops=-1)
     while running:
@@ -56,7 +52,7 @@ def tela_inicio(window):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     running = False
-                    state = RUNNING1
+                    state = RUNNING2
                     return state
         window.fill(BLACK)
         var.update(window)

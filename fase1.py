@@ -4,7 +4,7 @@ import time
 from assets import musica, imagem
 # from Classes import Nave, Bullet
 from Classes import Nave, Bullet, Servidor
-from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, v_jogador, servidor,tam_servidor, ALTURA,scale,LARGURA
+from configuracoes import FPS, BLACK, WHITE, TELA, FONT1, QUIT, INIT, RUNNING1, v_jogador, servidor,tam_servidor, ALTURA,scale,LARGURA, ENTRE2
 
 pygame.init()
 pygame.mixer_music.load(musica['primeira fase'])
@@ -63,19 +63,19 @@ def fase1(window):
                 #se a tecla for 'D'
                 if event.key == pygame.K_d:
                     #jogador move para direita
-                    jogador.speed_x = 3
+                    jogador.speed_x = 4
                 #se a tecla for 'A'
                 if event.key == pygame.K_a:
                     #jogador move para esquerda
-                    jogador.speed_x = -3
+                    jogador.speed_x = -4
                 #se a tecla for 'W'
                 if event.key == pygame.K_w:
                     #jogador move para cima
-                    jogador.speed_y = -3
+                    jogador.speed_y = -4
                 #se a tecla for 'S'
                 if event.key == pygame.K_s:
                     #jogador move para baixo
-                    jogador.speed_y = 3
+                    jogador.speed_y = 4
                 #se a tecla for 'SPAÇO'
                 if f5 == False:
                     if event.key == pygame.K_SPACE:
@@ -90,13 +90,13 @@ def fase1(window):
             if event.type == pygame.KEYUP:
                 #se a tecla for D
                 if event.key == pygame.K_d:
-                    jogador.speed_x -= 3
+                    jogador.speed_x -= 4
                 if event.key == pygame.K_a:
-                    jogador.speed_x += 3
+                    jogador.speed_x += 4
                 if event.key == pygame.K_s:
-                    jogador.speed_y -= 3
+                    jogador.speed_y -= 4
                 if event.key == pygame.K_w:
-                    jogador.speed_y += 3
+                    jogador.speed_y += 4
                 if event.key == pygame.K_SPACE:
                     if f5 == False:
                         atira = False
@@ -134,7 +134,7 @@ def fase1(window):
             f5 = True
             contagem_espera = 15000//scale
         window.fill(BLACK)
-        window.blit(back, (50, 50))
+        window.blit(back, (0, 0))
         all_sprites.update()
         all_sprites.draw(window)
         if pygame.sprite.groupcollide(bullet_enemy,sprite_jog,False,False):
@@ -148,7 +148,7 @@ def fase1(window):
             VIDA_SERVIDOR -= 1
         if VIDA_SERVIDOR <= 0:
             running = False
-            state = RUNNING2
+            state = ENTRE2
             return state
         if VIDA_JOGADOR <= 0:
             running = False
