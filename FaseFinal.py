@@ -33,6 +33,7 @@ def faseFinal(window):
     sprite_en.add(pelicano)
     VIDA_JOGADOR = v_jogador
     VIDAS_RESINA = resina
+    back =  imagem['background']['3']
     pygame.mixer_music.load(musica['boss final'])
     pygame.mixer_music.set_volume(0.5)
     pygame.mixer.music.play(loops=-1)
@@ -53,10 +54,11 @@ def faseFinal(window):
                 pelicano.shoot_diagonal_direita()
                 pelicano.shoot_diagonal_esquerda()
             if pelicano.rect.x >= LARGURA - 375:
-                pelicano.shoot_left_down()
-                pelicano.shoot_left_up()
+                pelicano.shoot_right_down()
+                pelicano.shoot_right_up()
                 pelicano.shoot_diagonal_direita()
                 pelicano.shoot_diagonal_esquerda()
+                pelicano.shoot_normal_baixo()
                 pelicano.shoot_dia_up()
                 pelicano.shoot_diaE_up()
             if pelicano.rect.y <= 200:
@@ -72,29 +74,30 @@ def faseFinal(window):
                 state = QUIT
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
-                    jogador.speed_x += 1
+                    jogador.speed_x += 4
                 if event.key == pygame.K_a:
-                    jogador.speed_x -= 1
+                    jogador.speed_x -= 4
                 if event.key == pygame.K_s:
-                    jogador.speed_y += 1
+                    jogador.speed_y += 4
                 if event.key == pygame.K_w:
-                    jogador.speed_y -= 1
+                    jogador.speed_y -= 4
                 if event.key == pygame.K_SPACE:
                     jogador.shoot()
                     atira = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_d:
-                    jogador.speed_x -= 1
+                    jogador.speed_x -= 4
                 if event.key == pygame.K_a:
-                    jogador.speed_x += 1
+                    jogador.speed_x += 4
                 if event.key == pygame.K_s:
-                    jogador.speed_y -= 1
+                    jogador.speed_y -= 4
                 if event.key == pygame.K_w:
-                    jogador.speed_y += 1
+                    jogador.speed_y += 4
                 if event.key == pygame.K_SPACE:
                     atira = False
-        window.fill(RED)
+        window.fill(BLACK)
         all_sprites.update()
+        window.blit(back, (0, 0))
         all_sprites.draw(window)  
         if pygame.sprite.groupcollide(bullet_enemy,sprite_jog,True,False):
             VIDA_JOGADOR -= 1

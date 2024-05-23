@@ -832,15 +832,15 @@ class Pelicano(pygame.sprite.Sprite):
         self.last_tiro_jog = pygame.time.get_ticks()
         #tempo desde o ultimo movimento
         self.last_move = pygame.time.get_ticks() 
-        self.pare = 3500 #para depois de x segundos
-        self.tempo_parada = 4000 #fica parado por x segundos
+        self.pare = 1000 #para depois de x segundos
+        self.tempo_parada = 1000 #fica parado por x segundos
         self.tempofase1 = 20000 #tempo no movetype
-        self.shoot_ticks = 340 #tempo pro tiro
+        self.shoot_ticks = 300 #tempo pro tiro
 #posição
-        self.rect.x = 60
-        self.rect.y = 200
+        self.rect.x = 180
+        self.rect.y = 190
         self.move_type = 1
-        self.speed_x = 2
+        self.speed_x = 6
         self.speed_y = 0    
     def update(self):
         if self.pare > 0:
@@ -848,21 +848,21 @@ class Pelicano(pygame.sprite.Sprite):
             self.rect.x += self.speed_x
             self.rect.y += self.speed_y
             if self.tempofase1 > 0:
-                if self.rect.x > LARGURA:
-                    self.speed_y = -2
-                    self.speed_x = -1
+                if self.rect.x > LARGURA - 75:
+                    self.speed_y = -6
+                    self.speed_x = -5
                 if self.rect.y <= 25:
-                    self.speed_x = -2
-                    self.speed_y = 1
+                    self.speed_x = -6
+                    self.speed_y = 5
                 if self.rect.x < 25:
-                    self.speed_x = 1
-                    self.speed_y = 2
+                    self.speed_x = 5
+                    self.speed_y = 6
                 if self.rect.y > ALTURA:
-                    self.speed_x = 2
-                    self.speed_y = -2
+                    self.speed_x = 6
+                    self.speed_y = -6
                 if self.rect.x == LARGURA:
-                    self.speed_y = -2
-                    self.speed_x = -2  
+                    self.speed_y = -6
+                    self.speed_x = -6
             # if self.rect.x < LARGURA - 75 and self.rect.y <= 25:
 
         if self.pare <= 0 and self.tempo_parada > 0:
@@ -871,25 +871,25 @@ class Pelicano(pygame.sprite.Sprite):
             self.tempo_parada -= 1
             
         if self.pare <= 0 and self.tempo_parada <= 0:
-            self.pare = 3500
-            self.tempo_parada = 4000
+            self.pare = 1000
+            self.tempo_parada = 1000
             self.rect.x += self.speed_x
             self.rect.y += self.speed_y
             if self.rect.x > LARGURA - 75:
-                self.speed_y = -1
-                self.speed_x = -2
+                self.speed_y = -5
+                self.speed_x = -6
             if self.rect.y < 25:
-                self.speed_x = -1
-                self.speed_y = 2
+                self.speed_x = -5
+                self.speed_y = 6
             if self.rect.x < 25:
-                self.speed_x = 1
+                self.speed_x = 5
                 self.speed_y = 0
-            if self.rect.y > ALTURA - 475:
-                self.speed_x = 1
+            if self.rect.y > ALTURA - 485:
+                self.speed_x = 5
                 self.speed_y = 0
             if self.rect.x == LARGURA-75:
-                self.speed_y = -2
-                self.speed_x = -1          
+                self.speed_y = -6
+                self.speed_x = -5          
     def shoot_diagonal_direita(self):
         agora = pygame.time.get_ticks()
         # Verifica quantos ticks se passaram desde o último tiro.
