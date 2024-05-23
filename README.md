@@ -21,7 +21,7 @@ Observações:
  - A hitbox do personagem principal (Humberto) é menor que sua sprite. Isso é intencional visto o estilo de jogo (Fixed Shooter).
 
 Vídeo de funcionamento do jogo:
-https://youtu.be/rSTpORZ3Jk0
+[https://youtu.be/rSTpORZ3Jk0](https://www.youtube.com/watch?v=np3TBUVl_o4)
 
 Créditos:
  - Criadores:
