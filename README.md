@@ -21,12 +21,15 @@ Observações:
  - A hitbox do personagem principal (Humberto) é menor que sua sprite. Isso é intencional visto o estilo de jogo (Fixed Shooter).
 
 Vídeo de funcionamento do jogo:
- https://youtu.be/rSTpORZ3Jk0
+https://youtu.be/rSTpORZ3Jk0
 
 Créditos:
+ - Criadores:
 	Max Mattos
 	Rafael Kauffmann
 	Denis Alonso
-
+ - Trilha sonora:
+ 	- artistas: ZUN, zts e Luck Ganriki;
+	https://youtube.com/playlist?list=PLmghvxE90Y_Bu-oEvqeVy0c_GxxhIoR1z&si=zHhYGaj3Ryqk7Nij
 
 Trabalho feito e dedicado ao professor Humberto Sandmann com muito carinho. Além de todas as brincadeiras, nós o admiramos muito professor. Muito obrigado pelo semestre maravilhoso.
